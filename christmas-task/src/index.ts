@@ -1,5 +1,8 @@
 import { data } from "./data";
+import noUiSlider from "nouislider";
+import "nouislider/dist/nouislider.css";
 
+const cardsContainer = document.querySelector(".cards-container");
 const filterFavorite = document.getElementById("favorite") as HTMLInputElement;
 filterFavorite?.addEventListener("change", filterData);
 const filterSizeSmall = document.getElementById("size-small") as HTMLInputElement;
@@ -29,16 +32,59 @@ filterShapeCone?.addEventListener("change", filterData);
 const filterShapeFlake = document.getElementById("shape-flake") as HTMLInputElement;
 filterShapeFlake?.addEventListener("change", filterData);
 const search = document.getElementById("search") as HTMLInputElement;
-search?.addEventListener("change", filterData);
+search?.addEventListener("search", filterData);
 const sort = document.getElementById("sort") as HTMLInputElement;
 sort?.addEventListener("change", filterData);
 const resetFiltersBtn = document.getElementById("reset-filters") as HTMLInputElement;
 resetFiltersBtn?.addEventListener("click", resetFilters);
+const sliderNumber: any = document.getElementById("sliderNumber")!;
+const sliderYear: any = document.getElementById("sliderYear")!;
+const sliderNumberMin = 1;
+const sliderNumberMax = 12;
+const sliderYearMin = 1940;
+const sliderYearMax = 2020;
+const sliderNumberOutputs = [
+  document.getElementById("slider-number-output-lower")!,
+  document.getElementById("slider-number-output-upper")!,
+];
+const sliderYearOutputs = [
+  document.getElementById("slider-year-output-lower")!,
+  document.getElementById("slider-year-output-upper")!,
+];
+
+noUiSlider.create(sliderNumber, {
+  start: [1, 12],
+  step: 1,
+  connect: true,
+  range: {
+    min: sliderNumberMin,
+    max: sliderNumberMax,
+  },
+});
+
+noUiSlider.create(sliderYear, {
+  start: [1940, 2020],
+  step: 1,
+  connect: true,
+  range: {
+    min: sliderYearMin,
+    max: sliderYearMax,
+  },
+});
+
+sliderNumber.noUiSlider.on("update", function (values, handle) {
+  sliderNumberOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+  filterData();
+});
+
+sliderYear.noUiSlider.on("update", function (values, handle) {
+  sliderYearOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+  filterData();
+});
 
 function renderCards(data) {
   const fragment = document.createDocumentFragment();
   const sourceCard = document.querySelector("#sourceCard") as HTMLTemplateElement;
-  const cardsContainer = document.querySelector(".cards-container");
   cardsContainer!.innerHTML = "";
 
   data.forEach((item) => {
@@ -134,6 +180,13 @@ function filterData() {
   }
   filteredData = filteredData.filter((el) => arrShape.includes(el.shape));
 
+  filteredData = filteredData.filter(
+    (el) => +sliderNumberOutputs[0].innerHTML <= +el.count && +el.count <= +sliderNumberOutputs[1].innerHTML
+  );
+  filteredData = filteredData.filter(
+    (el) => +sliderYearOutputs[0].innerHTML <= +el.year && +el.year <= +sliderYearOutputs[1].innerHTML
+  );
+
   if (search.value) {
     filteredData = filteredData.filter((el) => el.name.toLowerCase().includes(search.value.toLowerCase()));
   }
@@ -167,7 +220,12 @@ function filterData() {
     });
   }
 
-  renderCards(filteredData);
+  
+  if (filteredData.length) {
+    renderCards(filteredData);
+  } else {
+    showEmptyMessage();
+  }
 }
 
 function resetFilters() {
@@ -186,8 +244,21 @@ function resetFilters() {
   filterShapeCone.checked = false;
   filterShapeFlake.checked = false;
   search.value = "";
-  sort.value = "name";
+  sliderNumber.noUiSlider.set([sliderNumberMin, sliderNumberMax]);
+  sliderYear.noUiSlider.set([sliderYearMin, sliderYearMax]);
+  //sort.value = "name";
   filterData();
 }
 
-renderCards(data);
+function showEmptyMessage() {
+  cardsContainer!.innerHTML = "";
+  const emptyMessage = document.createElement("p");
+  emptyMessage.classList.add("empty-message");
+  emptyMessage.innerText = "Извините, совпадений не обнаружено.";
+  cardsContainer!.append(emptyMessage);
+}
+
+alert(
+  "Уважаемый проверяющий! Прошу отложить проверку на пару дней. В связи с жизненными обстоятельствами, не успел доделать в срок. Дискорд для связи: Vitaliy (bvfromru)#4741"
+);
+filterData();

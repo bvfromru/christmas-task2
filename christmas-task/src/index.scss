@@ -32,6 +32,7 @@ main {
   padding: 1%;
   margin: 1%;
   background-color: rgba(83, 45, 104, 0.2);
+  position: relative;
 }
 
 .card-description {
@@ -55,6 +56,48 @@ main {
 img {
   width: 100%;
   height: auto;
+}
+
+.ribbon {
+  position: absolute;
+  bottom: 20px;
+  width: 80px;
+  height: 40px;
+  background: #24c5db;
+  left: -8px;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+}
+
+.ribbon:before {
+  border-bottom: 8px solid #14455b;
+  border-left: 8px solid transparent;
+  top: -8px;
+}
+
+.ribbon:after {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 15px solid #24c5db;
+  right: -15px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-round {
+  flex-grow: 1;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 // checkbox styling
@@ -111,4 +154,22 @@ img {
 /* стили для чекбокса, находящегося в состоянии disabled */
 .custom-checkbox:disabled + label::before {
   background-color: #e9ecef;
+}
+
+// noUi slider styling
+
+.slider-round {
+  height: 10px;
+}
+
+.slider-round .noUi-connect {
+  background: #c0392b;
+}
+
+.slider-round .noUi-handle {
+  height: 18px;
+  width: 18px;
+  top: -5px;
+  right: -9px; /* half the width */
+  border-radius: 9px;
 }

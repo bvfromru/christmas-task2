@@ -12,7 +12,15 @@
         <aside>
           <fieldset>
             <div class="search">
-              <input type="text" class="search-field" name="search" id="search" />
+              <input
+                type="search"
+                class="search-field"
+                name="search"
+                id="search"
+                placeholder="Поиск"
+                autofocus
+                autocomplete="off"
+              />
             </div>
             <div class="sort-container">
               <span>Сортировать</span>
@@ -38,9 +46,19 @@
             </div>
             <div class="quality">
               <div>Количество экземпляров</div>
+              <div class="slider-container">
+                <output class="slider-output" id="slider-number-output-lower">1</output>
+                <div class="slider-round" id="sliderNumber"></div>
+                <output class="slider-output" id="slider-number-output-upper">12</output>
+              </div>
             </div>
             <div class="year">
               <div>Год покупки</div>
+              <div class="slider-container">
+                <output class="slider-output"  id="slider-year-output-lower">1940</output>
+                <div class="slider-round" id="sliderYear"></div>
+                <output class="slider-output"  id="slider-year-output-upper">2020</output>
+              </div>
             </div>
             <div class="color">
               <div>Цвет</div>
@@ -98,6 +116,7 @@
             <p>Любимая: <span class="card-favorite"></span></p>
           </div>
         </div>
+        <div class="ribbon"></div>
       </div>
     </template>
   </body>
