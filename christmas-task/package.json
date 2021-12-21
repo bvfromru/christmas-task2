@@ -24,5 +24,8 @@
   },
   "dependencies": {
     "nouislider": "^15.5.0"
-  }
+  },
+  "main": "webpack.config.js",
+  "author": "",
+  "license": "ISC"
 }

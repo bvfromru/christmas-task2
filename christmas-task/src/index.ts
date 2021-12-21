@@ -2,6 +2,35 @@ import { data } from "./data";
 import noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
 
+type Settings = {
+  favorites: string[];
+  filters: {
+    arrShape: string[];
+    number: number[];
+    year: number[];
+    arrColor: string[];
+    arrSize: string[];
+    onlyFavorites: boolean;
+  };
+  sort: string;
+};
+
+let settings: Settings = {
+  favorites: [],
+  filters: {
+    arrShape: [],
+    number: [],
+    year: [],
+    arrColor: [],
+    arrSize: [],
+    onlyFavorites: false,
+  },
+  sort: "",
+};
+
+//let favorites: string[] = [];
+const overlay = document.querySelector(".overlay");
+const favoritesCounter = document.querySelector(".favorites-counter");
 const cardsContainer = document.querySelector(".cards-container");
 const filterFavorite = document.getElementById("favorite") as HTMLInputElement;
 filterFavorite?.addEventListener("change", filterData);
@@ -37,6 +66,8 @@ const sort = document.getElementById("sort") as HTMLInputElement;
 sort?.addEventListener("change", filterData);
 const resetFiltersBtn = document.getElementById("reset-filters") as HTMLInputElement;
 resetFiltersBtn?.addEventListener("click", resetFilters);
+const resetSettingsBtn = document.getElementById("reset-settings") as HTMLInputElement;
+resetSettingsBtn?.addEventListener("click", resetSettings);
 const sliderNumber: any = document.getElementById("sliderNumber")!;
 const sliderYear: any = document.getElementById("sliderYear")!;
 const sliderNumberMin = 1;
@@ -52,36 +83,6 @@ const sliderYearOutputs = [
   document.getElementById("slider-year-output-upper")!,
 ];
 
-noUiSlider.create(sliderNumber, {
-  start: [1, 12],
-  step: 1,
-  connect: true,
-  range: {
-    min: sliderNumberMin,
-    max: sliderNumberMax,
-  },
-});
-
-noUiSlider.create(sliderYear, {
-  start: [1940, 2020],
-  step: 1,
-  connect: true,
-  range: {
-    min: sliderYearMin,
-    max: sliderYearMax,
-  },
-});
-
-sliderNumber.noUiSlider.on("update", function (values, handle) {
-  sliderNumberOutputs[handle].innerHTML = parseInt(values[handle]).toString();
-  filterData();
-});
-
-sliderYear.noUiSlider.on("update", function (values, handle) {
-  sliderYearOutputs[handle].innerHTML = parseInt(values[handle]).toString();
-  filterData();
-});
-
 function renderCards(data) {
   const fragment = document.createDocumentFragment();
   const sourceCard = document.querySelector("#sourceCard") as HTMLTemplateElement;
@@ -89,9 +90,13 @@ function renderCards(data) {
 
   data.forEach((item) => {
     const sourceClone = sourceCard.content.cloneNode(true) as DocumentFragment;
+    sourceClone.querySelector(".card")!.setAttribute("toy-id", item.num);
     sourceClone.querySelector(".card-name")!.textContent = item.name;
     const img = sourceClone.querySelector(".card-image") as HTMLImageElement;
     img.src = `./images/toys/${item.num}.webp`;
+    if (settings.favorites.includes(item.num)) {
+      sourceClone.querySelector(".card")!.classList.add("favorite");
+    }
     sourceClone.querySelector(".card-count")!.textContent = item.count;
     sourceClone.querySelector(".card-year")!.textContent = item.year;
     sourceClone.querySelector(".card-shape")!.textContent = item.shape;
@@ -103,44 +108,78 @@ function renderCards(data) {
   });
 
   cardsContainer!.append(fragment);
+  handleFavorites();
+}
+
+function handleFavorites() {
+  const cards = document.querySelectorAll(".card");
+  cards.forEach((card) =>
+    card.addEventListener("click", () => {
+      const toyId: string = card.getAttribute("toy-id")!;
+      if (settings.favorites.includes(toyId)) {
+        settings.favorites.splice(settings.favorites.indexOf(toyId), 1);
+        card.classList.remove("favorite");
+      } else {
+        if (settings.favorites.length >= 20) {
+          overlay?.classList.remove("hidden");
+        } else {
+          settings.favorites.push(toyId);
+          card.classList.add("favorite");
+        }
+      }
+      favoritesCounter!.innerHTML = settings.favorites.length.toString();
+    })
+  );
 }
 
 function filterData() {
   let filteredData = data;
   if (filterFavorite.checked) {
     filteredData = filteredData.filter((el) => el.favorite);
+    settings.filters.onlyFavorites = true;
+  } else {
+    settings.filters.onlyFavorites = false;
   }
 
   let arrSize: string[] = [];
   if (filterSizeSmall.checked) {
     arrSize.push("малый");
+    settings.filters.arrSize = arrSize;
   }
   if (filterSizeMedium.checked) {
     arrSize.push("средний");
+    settings.filters.arrSize = arrSize;
   }
   if (filterSizeBig.checked) {
     arrSize.push("большой");
+    settings.filters.arrSize = arrSize;
   }
   if (!filterSizeSmall.checked && !filterSizeMedium.checked && !filterSizeBig.checked) {
     arrSize = ["малый", "средний", "большой"];
+    settings.filters.arrSize = [];
   }
   filteredData = filteredData.filter((el) => arrSize.includes(el.size));
 
   let arrColor: string[] = [];
   if (filterColorWhite.checked) {
     arrColor.push("белый");
+    settings.filters.arrColor = arrColor;
   }
   if (filterColorYellow.checked) {
     arrColor.push("желтый");
+    settings.filters.arrColor = arrColor;
   }
   if (filterColorRed.checked) {
     arrColor.push("красный");
+    settings.filters.arrColor = arrColor;
   }
   if (filterColorBlue.checked) {
     arrColor.push("синий");
+    settings.filters.arrColor = arrColor;
   }
   if (filterColorGreen.checked) {
     arrColor.push("зелёный");
+    settings.filters.arrColor = arrColor;
   }
   if (
     !filterColorWhite.checked &&
@@ -156,18 +195,23 @@ function filterData() {
   let arrShape: string[] = [];
   if (filterShapeBall.checked) {
     arrShape.push("шар");
+    settings.filters.arrShape = arrShape;
   }
   if (filterShapeFigure.checked) {
     arrShape.push("фигурка");
+    settings.filters.arrShape = arrShape;
   }
   if (filterShapeBell.checked) {
     arrShape.push("колокольчик");
+    settings.filters.arrShape = arrShape;
   }
   if (filterShapeCone.checked) {
     arrShape.push("шишка");
+    settings.filters.arrShape = arrShape;
   }
   if (filterShapeFlake.checked) {
     arrShape.push("снежинка");
+    settings.filters.arrShape = arrShape;
   }
   if (
     !filterShapeBall.checked &&
@@ -183,9 +227,12 @@ function filterData() {
   filteredData = filteredData.filter(
     (el) => +sliderNumberOutputs[0].innerHTML <= +el.count && +el.count <= +sliderNumberOutputs[1].innerHTML
   );
+  settings.filters.number = [+sliderNumberOutputs[0].innerHTML, +sliderNumberOutputs[1].innerHTML];
+
   filteredData = filteredData.filter(
     (el) => +sliderYearOutputs[0].innerHTML <= +el.year && +el.year <= +sliderYearOutputs[1].innerHTML
   );
+  settings.filters.year = [+sliderYearOutputs[0].innerHTML, +sliderYearOutputs[1].innerHTML];
 
   if (search.value) {
     filteredData = filteredData.filter((el) => el.name.toLowerCase().includes(search.value.toLowerCase()));
@@ -219,8 +266,8 @@ function filterData() {
       return 0;
     });
   }
+  settings.sort = sort.value;
 
-  
   if (filteredData.length) {
     renderCards(filteredData);
   } else {
@@ -246,8 +293,15 @@ function resetFilters() {
   search.value = "";
   sliderNumber.noUiSlider.set([sliderNumberMin, sliderNumberMax]);
   sliderYear.noUiSlider.set([sliderYearMin, sliderYearMax]);
-  //sort.value = "name";
   filterData();
+}
+
+function resetSettings() {
+  settings.favorites = [];
+  sort.value = "name";
+  favoritesCounter!.innerHTML = settings.favorites.length.toString();
+  resetFilters();
+  initSettings();
 }
 
 function showEmptyMessage() {
@@ -258,7 +312,123 @@ function showEmptyMessage() {
   cardsContainer!.append(emptyMessage);
 }
 
-alert(
-  "Уважаемый проверяющий! Прошу отложить проверку на пару дней. В связи с жизненными обстоятельствами, не успел доделать в срок. Дискорд для связи: Vitaliy (bvfromru)#4741"
-);
-filterData();
+function setLocalStorage() {
+  localStorage.setItem("bvfromru-christmas-settings", JSON.stringify(settings));
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem("bvfromru-christmas-settings")) {
+    settings = JSON.parse(localStorage.getItem("bvfromru-christmas-settings")!);
+  } else {
+    initSettings();
+  }
+  actualizeFilters();
+  favoritesCounter!.innerHTML = settings.favorites.length.toString();
+}
+
+function actualizeFilters() {
+  if (settings.filters.arrSize.includes("малый")) {
+    filterSizeSmall.checked = true;
+  }
+  if (settings.filters.arrSize.includes("средний")) {
+    filterSizeMedium.checked = true;
+  }
+  if (settings.filters.arrSize.includes("большой")) {
+    filterSizeBig.checked = true;
+  }
+
+  if (settings.filters.arrShape.includes("шар")) {
+    filterShapeBall.checked = true;
+  }
+  if (settings.filters.arrShape.includes("фигурка")) {
+    filterShapeFigure.checked = true;
+  }
+  if (settings.filters.arrShape.includes("колокольчик")) {
+    filterShapeBell.checked = true;
+  }
+  if (settings.filters.arrShape.includes("шишка")) {
+    filterShapeCone.checked = true;
+  }
+  if (settings.filters.arrShape.includes("снежинка")) {
+    filterShapeFlake.checked = true;
+  }
+
+  if (settings.filters.arrColor.includes("белый")) {
+    filterColorWhite.checked = true;
+  }
+  if (settings.filters.arrColor.includes("желтый")) {
+    filterColorYellow.checked = true;
+  }
+  if (settings.filters.arrColor.includes("красный")) {
+    filterColorRed.checked = true;
+  }
+  if (settings.filters.arrColor.includes("синий")) {
+    filterColorBlue.checked = true;
+  }
+  if (settings.filters.arrColor.includes("зелёный")) {
+    filterColorGreen.checked = true;
+  }
+
+  sort.value = settings.sort;
+
+  if (settings.filters.onlyFavorites === true) {
+    filterFavorite.checked = true;
+  }
+}
+
+function initSettings() {
+  settings.favorites = [];
+  settings.filters.arrShape = [];
+  settings.filters.number = [sliderNumberMin, sliderNumberMax];
+  settings.filters.year = [sliderYearMin, sliderYearMax];
+  settings.filters.arrColor = [];
+  settings.filters.arrSize = [];
+  settings.filters.onlyFavorites = false;
+  settings.sort = "name";
+  setLocalStorage();
+}
+
+function init() {
+  getLocalStorage();
+
+  overlay?.addEventListener('click', () => {overlay.classList.add('hidden')});
+
+  noUiSlider.create(sliderNumber, {
+    start: [settings.filters.number[0], settings.filters.number[1]],
+    step: 1,
+    connect: true,
+    range: {
+      min: sliderNumberMin,
+      max: sliderNumberMax,
+    },
+  });
+
+  noUiSlider.create(sliderYear, {
+    start: [settings.filters.year[0], settings.filters.year[1]],
+    step: 1,
+    connect: true,
+    range: {
+      min: sliderYearMin,
+      max: sliderYearMax,
+    },
+  });
+
+  sliderNumber.noUiSlider.on("update", function (values, handle) {
+    sliderNumberOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+    filterData();
+  });
+
+  sliderYear.noUiSlider.on("update", function (values, handle) {
+    sliderYearOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+    filterData();
+  });
+
+  filterData();
+}
+// alert(
+//   "Уважаемый проверяющий! Прошу отложить проверку на пару дней. В связи с жизненными обстоятельствами, не успел доделать в срок. Дискорд для связи: Vitaliy (bvfromru)#4741"
+// );
+
+window.addEventListener("beforeunload", setLocalStorage);
+window.addEventListener("load", getLocalStorage);
+init();
