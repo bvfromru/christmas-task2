@@ -28,7 +28,9 @@
               autocomplete="off"
             />
           </div>
-          <div class="favorites-counter">0</div>
+          <div class="favorites-counter-container">
+            <span class="favorites-counter">0</span>
+          </div>
         </div>
       </div>
     </header>
@@ -36,23 +38,22 @@
       <div class="main-wrapper wrapper">
           <aside>
             <fieldset class="filters-container">
-              <div class="filter-values filters">
-                <div class="shape">
-                  <h2>Фильтры по значению</h2>
+              
+              <div class="filters-values filters">
+                <h2>Фильтры по значению</h2>
                   <div class="shape filter-line">
                     <span>Форма:</span>
-                    <input type="checkbox" class="custom-checkbox shape" name="shape-ball" id="shape-ball" />
-                    <label for="shape-ball">Шар</label>
-                    <input type="checkbox" class="custom-checkbox shape" name="shape-figure" id="shape-figure" />
-                    <label for="shape-figure">Фигурка</label>
-                    <input type="checkbox" class="custom-checkbox shape" name="shape-bell" id="shape-bell" />
-                    <label for="shape-bell">Колокольчик</label>
-                    <input type="checkbox" class="custom-checkbox shape" name="shape-cone" id="shape-cone" />
-                    <label for="shape-cone">Шишка</label>
-                    <input type="checkbox" class="custom-checkbox shape" name="shape-flake" id="shape-flake" />
-                    <label for="shape-flake">Снежинка</label>
+                    <input type="checkbox" class="custom-checkbox shape shape-ball" name="shape-ball" id="shape-ball" />
+                    <label for="shape-ball"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-figure" name="shape-figure" id="shape-figure" />
+                    <label for="shape-figure"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-bell" name="shape-bell" id="shape-bell" />
+                    <label for="shape-bell"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-cone" name="shape-cone" id="shape-cone" />
+                    <label for="shape-cone"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-flake" name="shape-flake" id="shape-flake" />
+                    <label for="shape-flake"></label>
                   </div>
-                </div>
                 <div class="color filter-line">
                   <span>Цвет:</span>
                   <input type="checkbox" class="custom-checkbox color color-white" name="color-white" id="color-white" />
@@ -81,25 +82,31 @@
                   <label for="favorite"></label>
                 </div>
               </div>
+
               <div class="filters-range filters">
                 <h2>Фильтры по диапазону</h2>
                 <div class="number">
-                  <div>Количество экземпляров:</div>
+                  <div class="slider-description">Количество экземпляров:</div>
                   <div class="slider-container">
-                    <output class="slider-output" id="slider-number-output-lower">1</output>
                     <div class="slider-round" id="sliderNumber"></div>
-                    <output class="slider-output" id="slider-number-output-upper">12</output>
+                    <div class="slider-outputs-container">
+                      <output class="slider-output" id="slider-number-output-lower">1</output>
+                      <output class="slider-output" id="slider-number-output-upper">12</output>
+                    </div>
                   </div>
                 </div>
                 <div class="year">
-                  <div>Год покупки:</div>
+                  <div class="slider-description">Год покупки:</div>
                   <div class="slider-container">
-                    <output class="slider-output"  id="slider-year-output-lower">1940</output>
                     <div class="slider-round" id="sliderYear"></div>
-                    <output class="slider-output"  id="slider-year-output-upper">2020</output>
+                    <div class="slider-outputs-container">
+                      <output class="slider-output"  id="slider-year-output-lower">1940</output>
+                      <output class="slider-output"  id="slider-year-output-upper">2020</output>
+                    </div>
                   </div>
                 </div>
               </div>
+
               <div class="filters-sort filters">
                 <div class="sort-container">
                   <h2>Сортировка</h2>
@@ -140,7 +147,7 @@
 
     <div class="overlay hidden">
       <div class="modal-window">
-        <p>Извините, все слоты заполнены.</p>
+        <p>Извините, все слоты заполнены</p>
         <button class="btn">Отлично!</button>
       </div>
     </div>

@@ -1,3 +1,53 @@
+$color-neon: #278d9f;
+$animation-time: 0.6s;
+
+@keyframes ani {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.card {
+  opacity: 0;
+  animation: ani $animation-time forwards;
+}
+
+.card:nth-child(1) {
+  animation: ani $animation-time forwards;
+}
+.card:nth-child(2) {
+  animation: ani $animation-time forwards .05s;
+}
+.card:nth-child(3) {
+  animation: ani $animation-time forwards .1s;
+}
+.card:nth-child(4) {
+  animation: ani $animation-time forwards .015s;
+}
+.card:nth-child(5) {
+  animation: ani $animation-time forwards .2s;
+}
+.card:nth-child(6) {
+  animation: ani $animation-time forwards .25s;
+}
+.card:nth-child(7) {
+  animation: ani $animation-time forwards .3s;
+}
+.card:nth-child(8) {
+  animation: ani $animation-time forwards .35s;
+}
+.card:nth-child(9) {
+  animation: ani $animation-time forwards .4s;
+}
+.card:nth-child(10) {
+  animation: ani $animation-time forwards .45s;
+}
+.card:nth-child(11) {
+  animation: ani $animation-time forwards 0.5s;
+}
+.card:nth-child(12) {
+  animation: ani $animation-time forwards 0.55s;
+}
+
 body {
   background-color: #121c1e;
   color: #fff;
@@ -10,12 +60,20 @@ body {
   margin-right: auto;
 }
 
+header {
+  position: fixed;
+  background-color: #121c1e;
+  z-index: 1;
+  left: 0;
+  right: 0;
+}
+
 .header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+
 
   .navbar {
     ul {
@@ -35,8 +93,7 @@ body {
       vertical-align: middle;
       font-size: 20px;
       padding: 20px;
-      transition: 0.3s;
-      margin-right: 30px;
+      transition: filter 0.3s, color 0.3s;
       &.mainpage {
         font-size: 0;
         padding: 0;
@@ -50,7 +107,7 @@ body {
         filter: invert(57%) sepia(100%) saturate(329%) hue-rotate(141deg) brightness(89%) contrast(90%);
       }
       &:hover {
-        color: #278d9f;
+        color: $color-neon;
       }
     }
     li:last-child a {
@@ -66,10 +123,20 @@ body {
       padding: 5px 25px;
       margin-right: 30px;
       border-radius: 20px;
-      border: 1px solid #278d9f;
+      border: 2px solid $color-neon;
       color: #fff;
       font-size: 18px;
       background-color: rgba(31, 112, 127, 0.3);
+    }
+    [type="search"]::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 14px;
+      width: 14px;
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjEyMy4wNXB4IiBoZWlnaHQ9IjEyMy4wNXB4IiB2aWV3Qm94PSIwIDAgMTIzLjA1IDEyMy4wNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTIzLjA1IDEyMy4wNTsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggZD0iTTEyMS4zMjUsMTAuOTI1bC04LjUtOC4zOTljLTIuMy0yLjMtNi4xLTIuMy04LjUsMGwtNDIuNCw0Mi4zOTlMMTguNzI2LDEuNzI2Yy0yLjMwMS0yLjMwMS02LjEwMS0yLjMwMS04LjUsMGwtOC41LDguNQ0KCQljLTIuMzAxLDIuMy0yLjMwMSw2LjEsMCw4LjVsNDMuMSw0My4xbC00Mi4zLDQyLjVjLTIuMywyLjMtMi4zLDYuMSwwLDguNWw4LjUsOC41YzIuMywyLjMsNi4xLDIuMyw4LjUsMGw0Mi4zOTktNDIuNGw0Mi40LDQyLjQNCgkJYzIuMywyLjMsNi4xLDIuMyw4LjUsMGw4LjUtOC41YzIuMy0yLjMsMi4zLTYuMSwwLTguNWwtNDIuNS00Mi40bDQyLjQtNDIuMzk5QzEyMy42MjUsMTcuMTI1LDEyMy42MjUsMTMuMzI1LDEyMS4zMjUsMTAuOTI1eiIvPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=);
+      background-size: cover;
+      filter: invert(1);
+      cursor: pointer;
     }
   }
 }
@@ -79,6 +146,11 @@ body {
   background-size: cover;
   background-attachment: fixed;
   min-height: calc(100vh - 70px - 72px);
+  padding-top: 70px;
+}
+
+.empty-message {
+  font-size: 30px;
 }
 
 .cards-container {
@@ -97,7 +169,7 @@ body {
   box-sizing: border-box;
   width: calc(24% - (2 * 1%));
   min-width: 290px;
-  padding: 0px 0%;
+  padding: 0 2px;
   margin: 15px 1%;
   position: relative;
   cursor: pointer;
@@ -121,6 +193,36 @@ body {
   }
 }
 
+.favorites-counter-container {
+  width: 48px;
+  height: 60px;
+  background-image: url(./assets/svg/ball-2.svg);
+  background-size: 48px 60px;
+  background-position: left -8px;
+  background-repeat: no-repeat;
+  margin-top: 7px;
+  cursor: default;
+}
+
+.favorites-counter {
+  display: inline-block;
+  min-width: 40px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 4px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  background-color: $color-neon;
+  font-weight: bold;
+  transition: background-color 1s;
+}
+
+.favorites-counter.red {
+  background-color: red;
+}
+
 .card-name {
   text-align: center;
 }
@@ -131,11 +233,11 @@ body {
 }
 
 .card-image-container {
-  width: 50%;
+  width: 45%;
 }
 
 .card-properties {
-  width: 50%;
+  width: 55%;
   font-weight: bold;
   p {
     margin-top: 0;
@@ -183,10 +285,14 @@ img {
   //margin: 10px;
   max-width: 600px;
   border-radius: 10px;
-  border: 2px solid #278d9f;
+  border: 2px solid $color-neon;
   background-color: rgba(31, 112, 127, 0.3);
   backdrop-filter: blur(6px);
   font-size: 30px;
+}
+
+.buttons {
+  margin-bottom: 15px;
 }
 
 .btn {
@@ -194,12 +300,12 @@ img {
   margin: 10px 0;
   padding: 10px 20px;
   border-radius: 20px;
-  border: 2px solid #278d9f;
+  border: 2px solid $color-neon;
   background-color: rgba(31, 112, 127, 0.3);
   backdrop-filter: blur(6px);
   color: #fff;
   font-size: 20px;
-  transition: 0.3s;
+  transition: border 0.3s, background-color 0.3s;
 
   &:hover {
     border: 2px solid rgb(79, 181, 199);
@@ -222,7 +328,7 @@ img {
   background-position: 95% center;
   backdrop-filter: blur(6px);
   border-radius: 20px;
-  border: 2px solid #278d9f;
+  border: 2px solid $color-neon;
   font-size: 20px;
   color: #fff;
   cursor: pointer;
@@ -255,11 +361,25 @@ img {
   font-size: 22px;
 }
 
+footer a {
+  transition: filter 0.3s;
+}
+
+footer a:hover {
+  filter: invert(57%) sepia(100%) saturate(329%) hue-rotate(141deg) brightness(89%) contrast(90%);
+}
+
+.sort-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .filters-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
+  flex-wrap: wrap;
   margin: 0;
   border: none;
   padding: 0;
@@ -267,15 +387,34 @@ img {
 }
 
 .filters {
-  padding: 0px 20px 6px 20px;
-  margin: 0 10px;
+  padding: 0px 1% 6px 1%;
+  margin: 0 5px 10px 5px;
   border-radius: 10px;
   background-color: rgba(31, 112, 127, 0.3);
   backdrop-filter: blur(6px);
-  width: 30%;
+  min-width: 270px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.filters-values {
+  width: 30%;
+}
+
+.filters-range {
+  width: 40%;
+}
+
+.filters-sort {
+  width: 25%;
+}
+
+.slider-description {
+  font-size: 22px;
+  margin-bottom: 15px;
 }
 
 .filters span {
@@ -289,6 +428,11 @@ img {
 .size span {
   margin-top: 13px;
   margin-right: 4px;
+}
+
+.shape span {
+  margin-top: 8px;
+  margin-right: 8px;
 }
 
 .filter-line {
@@ -323,13 +467,14 @@ img {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 50% 50%;
+  transition: transform 0.3s;
 }
 
 .custom-checkbox:checked + label::before {
-  border-color: #0b76ef;
-  background-color: #0b76ef;
+  border-color: $color-neon;
+  background-color: $color-neon;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-}
+  }
 
 .custom-checkbox.color + label {
   font-size: 0;
@@ -396,7 +541,6 @@ img {
   width: 50px;
   height: 50px;
   margin-right: 0;
-  transition: 0s;
 }
 
 .custom-checkbox.size:checked + label::before {
@@ -419,36 +563,63 @@ img {
   margin-right: 10px;
 }
 
+.custom-checkbox.shape + label::before {
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 3px;
+}
+
+.custom-checkbox.shape:checked + label::before {
+  background-color: transparent;
+  border: none;
+  filter: invert(10%) sepia(63%) saturate(961%) hue-rotate(-205deg) brightness(64%) contrast(362%);
+}
+
+.custom-checkbox.shape:not(:disabled):active + label::before {
+  background-color: transparent;
+  border: none;
+}
+
+.custom-checkbox.shape-ball + label::before {
+  background-image: url(./assets/svg/ball.svg);
+}
+.custom-checkbox.shape-figure + label::before {
+  background-image: url(./assets/svg/toy.svg);
+}
+.custom-checkbox.shape-bell + label::before {
+  background-image: url(./assets/svg/bell.svg);
+}
+.custom-checkbox.shape-cone + label::before {
+  background-image: url(./assets/svg/cone.svg);
+}
+.custom-checkbox.shape-flake + label::before {
+  background-image: url(./assets/svg/snowflake.svg);
+}
+
 /* стили при наведении курсора на checkbox */
-.custom-checkbox:not(:disabled):not(:checked) + label:hover::before {
-  border-color: #b3d7ff;
+.custom-checkbox + label:hover::before {
+  transform: scale(1.08);
 }
-/* стили для активного состояния чекбокса (при нажатии на него) */
-.custom-checkbox:not(:disabled):active + label::before {
-  background-color: #b3d7ff;
-  border-color: #b3d7ff;
-}
+
 /* стили для чекбокса, находящегося в фокусе */
 .custom-checkbox:focus + label::before {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-/* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
-.custom-checkbox:focus:not(:checked) + label::before {
-  border-color: #80bdff;
-}
-/* стили для чекбокса, находящегося в состоянии disabled */
-.custom-checkbox:disabled + label::before {
-  background-color: #e9ecef;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
 }
 
 // noUi slider styling
 
 .slider-round {
   height: 10px;
+  margin: 0 15px 15px 15px;
 }
 
 .slider-round .noUi-connect {
-  background: #c0392b;
+  background: $color-neon;
 }
 
 .slider-round .noUi-handle {
@@ -462,4 +633,67 @@ img {
 .noUi-handle:before,
 .noUi-handle:after {
   display: none;
+}
+
+.noUi-touch-area {
+  cursor: pointer;
+}
+
+.noUi-target {
+  border: none;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: 15px;
+}
+
+.slider-outputs-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+
+@media screen and (max-width: 1000px) {
+
+  .filters-container {
+    justify-content: center;
+  }
+
+  .filters {
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+
+@media screen and (max-width: 700px) {
+  header {
+    position: static;
+  }
+
+  .header-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-container {
+    padding-top: 0px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+ .filters {
+   width: 90%;
+ }
 }
