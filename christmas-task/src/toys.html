@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christmas-task by bvfromru</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-wrapper wrapper">
+        <nav class="navbar">
+          <ul>
+            <li><a class="mainpage" href="">Главная</a></li>
+            <li><a href="">Игрушки</a></li>
+            <li><a href="">Ёлка</a></li>
+          </ul>
+        </nav>
+        <div class="header-controls">
+          <div class="search">
+            <input
+              type="search"
+              class="search-field"
+              name="search"
+              id="search"
+              placeholder="Поиск"
+              autofocus
+              autocomplete="off"
+            />
+          </div>
+          <div class="favorites-counter-container">
+            <span class="favorites-counter">0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="main-container toys-page">
+      <div class="main-wrapper wrapper">
+          <aside>
+            <fieldset class="filters-container">
+              
+              <div class="filters-values filters">
+                <h2>Фильтры по значению</h2>
+                  <div class="shape filter-line">
+                    <span>Форма:</span>
+                    <input type="checkbox" class="custom-checkbox shape shape-ball" name="shape-ball" id="shape-ball" />
+                    <label for="shape-ball"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-figure" name="shape-figure" id="shape-figure" />
+                    <label for="shape-figure"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-bell" name="shape-bell" id="shape-bell" />
+                    <label for="shape-bell"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-cone" name="shape-cone" id="shape-cone" />
+                    <label for="shape-cone"></label>
+                    <input type="checkbox" class="custom-checkbox shape shape-flake" name="shape-flake" id="shape-flake" />
+                    <label for="shape-flake"></label>
+                  </div>
+                <div class="color filter-line">
+                  <span>Цвет:</span>
+                  <input type="checkbox" class="custom-checkbox color color-white" name="color-white" id="color-white" />
+                  <label for="color-white">Белый</label>
+                  <input type="checkbox" class="custom-checkbox color color-yellow" name="color-yellow" id="color-yellow" />
+                  <label for="color-yellow">Желтый</label>
+                  <input type="checkbox" class="custom-checkbox color color-red" name="color-red" id="color-red" />
+                  <label for="color-red">Красный</label>
+                  <input type="checkbox" class="custom-checkbox color color-blue" name="color-blue" id="color-blue" />
+                  <label for="color-blue">Синий</label>
+                  <input type="checkbox" class="custom-checkbox color color-green" name="color-green" id="color-green" />
+                  <label for="color-green">Зелёный</label>
+                </div>
+                <div class="size filter-line">
+                  <span>Размер:</span>
+                  <input type="checkbox" class="custom-checkbox size size-small" name="size-small" id="size-small" />
+                  <label for="size-small"></label>
+                  <input type="checkbox" class="custom-checkbox size size-medium" name="size-medium" id="size-medium" />
+                  <label for="size-medium"></label>
+                  <input type="checkbox" class="custom-checkbox size size-big" name="size-big" id="size-big" />
+                  <label for="size-big"></label>
+                </div>
+                <div class="favorite-container filter-line">
+                  <span>Только любимые:</span>
+                  <input type="checkbox" class="custom-checkbox favorite" name="favorite" id="favorite" />
+                  <label for="favorite"></label>
+                </div>
+              </div>
+
+              <div class="filters-range filters">
+                <h2>Фильтры по диапазону</h2>
+                <div class="number">
+                  <div class="slider-description">Количество экземпляров:</div>
+                  <div class="slider-container">
+                    <div class="slider-round" id="sliderNumber"></div>
+                    <div class="slider-outputs-container">
+                      <output class="slider-output" id="slider-number-output-lower">1</output>
+                      <output class="slider-output" id="slider-number-output-upper">12</output>
+                    </div>
+                  </div>
+                </div>
+                <div class="year">
+                  <div class="slider-description">Год покупки:</div>
+                  <div class="slider-container">
+                    <div class="slider-round" id="sliderYear"></div>
+                    <div class="slider-outputs-container">
+                      <output class="slider-output"  id="slider-year-output-lower">1940</output>
+                      <output class="slider-output"  id="slider-year-output-upper">2020</output>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filters-sort filters">
+                <div class="sort-container">
+                  <h2>Сортировка</h2>
+                  <select class="sort" id="sort">
+                    <option value="name">По алфавиту</option>
+                    <option value="name-backward">Обратно алфавиту</option>
+                    <option value="year">Сначала новые</option>
+                    <option value="year-backward">Сначала старые</option>
+                  </select>
+                </div>
+                
+                <div class="buttons">
+                  <button class="reset-filters btn" id="reset-filters">Сбросить фильтры</button>
+                  <button class="reset-settings btn" id="reset-settings">Сбросить настройки</button>
+                </div>
+              </div>
+              
+            </fieldset>
+          </aside>
+          <main>
+            <ul class="cards-container"></ul>
+          </main>
+        </div>
+      </div>
+      <footer>
+        <div class="footer-wrapper wrapper">
+          <div class="github">
+            <a class = "footer-btn" href="https://github.com/bvfromru" target="_blank"><img src="./assets/svg/github.svg" alt="GitHub logo"></a>
+          </div>
+            <div class="year">
+              2021
+            </div>
+            <div class="rsschool">
+              <a class = "footer-btn" href="https://rs.school/js/" target="_blank"><img src="./assets/svg/rs_school_white.svg" alt="RS School logo"></a>
+            </div>
+        </div>
+      </footer>
+
+    <div class="overlay hidden">
+      <div class="modal-window">
+        <p>Извините, все слоты заполнены</p>
+        <button class="btn">Отлично!</button>
+      </div>
+    </div>
+
+    <template id="sourceCard">
+      <li class="card">
+        <h2 class="card-name">Большой шар с рисунком цветок</h2>
+        <div class="card-description">
+          <div class="card-image-container">
+            <img class="card-image" src="./images/toys/1.webp" alt="" />
+          </div>
+          <div class="card-properties">
+            <p>Количество: <span class="card-count"></span></p>
+            <p>Год покупки: <span class="card-year"></span></p>
+            <p>Форма: <span class="card-shape"></span></p>
+            <p>Цвет: <span class="card-color"></span></p>
+            <p>Размер: <span class="card-size"></span></p>
+            <p>Любимая: <span class="card-favorite"></span></p>
+          </div>
+        </div>
+        <div class="ribbon"></div>
+      </div>
+    </template>
+  </body>
+</html>

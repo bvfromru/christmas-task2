@@ -1,9 +1,16 @@
+@import url(./snowflakes.scss);
+@import url(./garland.scss);
+
 $color-neon: #278d9f;
 $animation-time: 0.6s;
 
 @keyframes ani {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .card {
@@ -15,31 +22,31 @@ $animation-time: 0.6s;
   animation: ani $animation-time forwards;
 }
 .card:nth-child(2) {
-  animation: ani $animation-time forwards .05s;
+  animation: ani $animation-time forwards 0.05s;
 }
 .card:nth-child(3) {
-  animation: ani $animation-time forwards .1s;
+  animation: ani $animation-time forwards 0.1s;
 }
 .card:nth-child(4) {
-  animation: ani $animation-time forwards .015s;
+  animation: ani $animation-time forwards 0.015s;
 }
 .card:nth-child(5) {
-  animation: ani $animation-time forwards .2s;
+  animation: ani $animation-time forwards 0.2s;
 }
 .card:nth-child(6) {
-  animation: ani $animation-time forwards .25s;
+  animation: ani $animation-time forwards 0.25s;
 }
 .card:nth-child(7) {
-  animation: ani $animation-time forwards .3s;
+  animation: ani $animation-time forwards 0.3s;
 }
 .card:nth-child(8) {
-  animation: ani $animation-time forwards .35s;
+  animation: ani $animation-time forwards 0.35s;
 }
 .card:nth-child(9) {
-  animation: ani $animation-time forwards .4s;
+  animation: ani $animation-time forwards 0.4s;
 }
 .card:nth-child(10) {
-  animation: ani $animation-time forwards .45s;
+  animation: ani $animation-time forwards 0.45s;
 }
 .card:nth-child(11) {
   animation: ani $animation-time forwards 0.5s;
@@ -73,7 +80,6 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
 
   .navbar {
     ul {
@@ -145,8 +151,11 @@ header {
   background-image: url(./images/bg.webp);
   background-size: cover;
   background-attachment: fixed;
-  min-height: calc(100vh - 70px - 72px);
   padding-top: 70px;
+}
+
+.main-container.toyspage {
+  min-height: calc(100vh - 70px - 72px);
 }
 
 .empty-message {
@@ -440,6 +449,134 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
+//tree page styling
+.wrapper {
+  max-width: 1600px;
+}
+
+.main-container.tree .main-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 140px);
+  min-height: 750px;
+}
+
+.main-tree-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: url(./images/bgs/1.webp);
+  background-size: cover;
+  background-position: center;
+  width: 800px;
+  padding-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.left-column {
+  width: calc(50% - 400px);
+}
+
+.right-column {
+  width: calc(380px);
+  padding-left: 20px;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+.cards-container {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.cards-container li {
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(1.1) contrast(1.1);
+  }
+
+  &.active {
+    filter: brightness(0.5) contrast(0.5);
+  }
+}
+
+.trees-container li {
+  width: 115px;
+  height: 115px;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-size: auto 110px;
+}
+
+.backgrounds-container li {
+  width: 65px;
+  height: 65px;
+  border: 1px solid #cccc;
+  background-size: cover;
+}
+
+
+.toys-container li {
+  width: 84px;
+  height: 84px;
+  background-color: rgba(255, 255, 255, .5);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toys-container img {
+  width: 60px;
+  height: 60px;
+}
+
+.toys-container div {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #24C5DB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.christmas-tree {
+  display: block;
+  width: 500px;
+  height: 714px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // checkbox styling
 
 .custom-checkbox {
@@ -474,7 +611,7 @@ footer a:hover {
   border-color: $color-neon;
   background-color: $color-neon;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
-  }
+}
 
 .custom-checkbox.color + label {
   font-size: 0;
@@ -657,9 +794,7 @@ footer a:hover {
   font-size: 20px;
 }
 
-
 @media screen and (max-width: 1000px) {
-
   .filters-container {
     justify-content: center;
   }
@@ -674,7 +809,6 @@ footer a:hover {
     display: flex;
     flex-direction: column;
   }
-  
 }
 
 @media screen and (max-width: 700px) {
@@ -693,7 +827,9 @@ footer a:hover {
 }
 
 @media screen and (max-width: 600px) {
- .filters {
-   width: 90%;
- }
+  .filters {
+    width: 90%;
+  }
 }
+
+

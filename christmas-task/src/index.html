@@ -34,101 +34,41 @@
         </div>
       </div>
     </header>
-    <div class="main-container">
+    <div class="main-container tree">
       <div class="main-wrapper wrapper">
-          <aside>
-            <fieldset class="filters-container">
-              
-              <div class="filters-values filters">
-                <h2>Фильтры по значению</h2>
-                  <div class="shape filter-line">
-                    <span>Форма:</span>
-                    <input type="checkbox" class="custom-checkbox shape shape-ball" name="shape-ball" id="shape-ball" />
-                    <label for="shape-ball"></label>
-                    <input type="checkbox" class="custom-checkbox shape shape-figure" name="shape-figure" id="shape-figure" />
-                    <label for="shape-figure"></label>
-                    <input type="checkbox" class="custom-checkbox shape shape-bell" name="shape-bell" id="shape-bell" />
-                    <label for="shape-bell"></label>
-                    <input type="checkbox" class="custom-checkbox shape shape-cone" name="shape-cone" id="shape-cone" />
-                    <label for="shape-cone"></label>
-                    <input type="checkbox" class="custom-checkbox shape shape-flake" name="shape-flake" id="shape-flake" />
-                    <label for="shape-flake"></label>
-                  </div>
-                <div class="color filter-line">
-                  <span>Цвет:</span>
-                  <input type="checkbox" class="custom-checkbox color color-white" name="color-white" id="color-white" />
-                  <label for="color-white">Белый</label>
-                  <input type="checkbox" class="custom-checkbox color color-yellow" name="color-yellow" id="color-yellow" />
-                  <label for="color-yellow">Желтый</label>
-                  <input type="checkbox" class="custom-checkbox color color-red" name="color-red" id="color-red" />
-                  <label for="color-red">Красный</label>
-                  <input type="checkbox" class="custom-checkbox color color-blue" name="color-blue" id="color-blue" />
-                  <label for="color-blue">Синий</label>
-                  <input type="checkbox" class="custom-checkbox color color-green" name="color-green" id="color-green" />
-                  <label for="color-green">Зелёный</label>
-                </div>
-                <div class="size filter-line">
-                  <span>Размер:</span>
-                  <input type="checkbox" class="custom-checkbox size size-small" name="size-small" id="size-small" />
-                  <label for="size-small"></label>
-                  <input type="checkbox" class="custom-checkbox size size-medium" name="size-medium" id="size-medium" />
-                  <label for="size-medium"></label>
-                  <input type="checkbox" class="custom-checkbox size size-big" name="size-big" id="size-big" />
-                  <label for="size-big"></label>
-                </div>
-                <div class="favorite-container filter-line">
-                  <span>Только любимые:</span>
-                  <input type="checkbox" class="custom-checkbox favorite" name="favorite" id="favorite" />
-                  <label for="favorite"></label>
-                </div>
-              </div>
+        <aside class="left-column">
+          <section class="trees-options">
+            <h2>Выберите ёлку</h2>
+            <ul class="trees-container cards-container">
 
-              <div class="filters-range filters">
-                <h2>Фильтры по диапазону</h2>
-                <div class="number">
-                  <div class="slider-description">Количество экземпляров:</div>
-                  <div class="slider-container">
-                    <div class="slider-round" id="sliderNumber"></div>
-                    <div class="slider-outputs-container">
-                      <output class="slider-output" id="slider-number-output-lower">1</output>
-                      <output class="slider-output" id="slider-number-output-upper">12</output>
-                    </div>
-                  </div>
-                </div>
-                <div class="year">
-                  <div class="slider-description">Год покупки:</div>
-                  <div class="slider-container">
-                    <div class="slider-round" id="sliderYear"></div>
-                    <div class="slider-outputs-container">
-                      <output class="slider-output"  id="slider-year-output-lower">1940</output>
-                      <output class="slider-output"  id="slider-year-output-upper">2020</output>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            </ul>
+          </section>
+          <section class="backgrounds-options">
+            <h2>Выберите фон</h2>
+            <ul class="backgrounds-container cards-container">
 
-              <div class="filters-sort filters">
-                <div class="sort-container">
-                  <h2>Сортировка</h2>
-                  <select class="sort" id="sort">
-                    <option value="name">По алфавиту</option>
-                    <option value="name-backward">Обратно алфавиту</option>
-                    <option value="year">Сначала новые</option>
-                    <option value="year-backward">Сначала старые</option>
-                  </select>
-                </div>
-                
-                <div class="buttons">
-                  <button class="reset-filters btn" id="reset-filters">Сбросить фильтры</button>
-                  <button class="reset-settings btn" id="reset-settings">Сбросить настройки</button>
-                </div>
-              </div>
-              
-            </fieldset>
-          </aside>
-          <main>
-            <ul class="cards-container"></ul>
-          </main>
+            </ul>
+          </section>
+          <section class="garland-options">
+            <h2>Гирлянда</h2>
+          </section>
+        </aside>  
+        <main class="main-tree-container">
+          <div class="snowflakes">            
+          </div>
+          <div class="garland">            
+            
+          </div>
+          <img class="christmas-tree" src="./images/trees/1.webp" alt="Christmas tree">
+        </main>
+        <aside class="right-column">
+          <section class="toys-options">
+            <h2>Игрушки</h2>
+            <ul class="toys-container cards-container">
+
+            </ul>
+          </section>
+        </aside>
         </div>
       </div>
       <footer>
