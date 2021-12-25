@@ -394,6 +394,10 @@ function initSettings() {
   settings.filters.arrSize = [];
   settings.filters.onlyFavorites = false;
   settings.sort = "name";
+  if (settings.favorites.length < 20) {
+    favoritesCounter?.classList.remove("red");
+  }
+
   setLocalStorage();
 }
 
