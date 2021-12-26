@@ -471,7 +471,7 @@ footer a:hover {
   width: 800px;
   padding-bottom: 20px;
   overflow: hidden;
-  position: relative;
+  //position: relative;
 }
 
 .left-column {
@@ -540,9 +540,11 @@ h2 {
   align-items: center;
 }
 
-.toys-container img {
+.toy-image {
   width: 60px;
   height: 60px;
+  cursor: grab;
+  position: absolute;
 }
 
 .toys-container div {
@@ -565,7 +567,13 @@ h2 {
   height: 714px;
 }
 
+.snowflakes {
+  display: none;
+}
 
+.dragging {
+  opacity: 0.5;
+}
 
 
 

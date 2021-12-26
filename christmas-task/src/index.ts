@@ -50,8 +50,8 @@
 // filterColorBlue?.addEventListener("change", filterData);
 // const filterColorGreen = document.getElementById("color-green") as HTMLInputElement;
 // filterColorGreen?.addEventListener("change", filterData);
-// const filterShapeBall = document.getElementById("shape-ball") as HTMLInputElement;
-// filterShapeBall?.addEventListener("change", filterData);
+// const filterShapetoyCardImage = document.getElementById("shape-toyCardImage") as HTMLInputElement;
+// filterShapetoyCardImage?.addEventListener("change", filterData);
 // const filterShapeFigure = document.getElementById("shape-figure") as HTMLInputElement;
 // filterShapeFigure?.addEventListener("change", filterData);
 // const filterShapeBell = document.getElementById("shape-bell") as HTMLInputElement;
@@ -200,7 +200,7 @@
 //   filteredData = filteredData.filter((el) => arrColor.includes(el.color));
 
 //   let arrShape: string[] = [];
-//   if (filterShapeBall.checked) {
+//   if (filterShapetoyCardImage.checked) {
 //     arrShape.push("шар");
 //     settings.filters.arrShape = arrShape;
 //   }
@@ -221,7 +221,7 @@
 //     settings.filters.arrShape = arrShape;
 //   }
 //   if (
-//     !filterShapeBall.checked &&
+//     !filterShapetoyCardImage.checked &&
 //     !filterShapeFigure.checked &&
 //     !filterShapeBell.checked &&
 //     !filterShapeCone.checked &&
@@ -294,7 +294,7 @@
 //   filterColorRed.checked = false;
 //   filterColorBlue.checked = false;
 //   filterColorGreen.checked = false;
-//   filterShapeBall.checked = false;
+//   filterShapetoyCardImage.checked = false;
 //   filterShapeFigure.checked = false;
 //   filterShapeBell.checked = false;
 //   filterShapeCone.checked = false;
@@ -347,7 +347,7 @@
 //   }
 
 //   if (settings.filters.arrShape.includes("шар")) {
-//     filterShapeBall.checked = true;
+//     filterShapetoyCardImage.checked = true;
 //   }
 //   if (settings.filters.arrShape.includes("фигурка")) {
 //     filterShapeFigure.checked = true;
@@ -457,9 +457,9 @@
 const TREESCOUNT = 6;
 const BACKGROUNDSCOUNT = 10;
 const SNOWFLAKESCOUNT = 133;
+const christmasTree = document.querySelector(".christmas-tree") as HTMLImageElement;
 
 function createTrees() {
-  const christmasTree = document.querySelector(".christmas-tree") as HTMLImageElement;
   const treesContainer = document.querySelector(".trees-container");
   const treesArr: HTMLElement[] = [];
   for (let i = 1; i <= TREESCOUNT; i++) {
@@ -506,12 +506,92 @@ function createToys() {
   const toysContainer = document.querySelector(".toys-container");
   for (let i = 1; i <= 20; i++) {
     const toyCard = document.createElement("li");
-    const toyCardImage = document.createElement('img') as HTMLImageElement;
-    const toyCardCount = document.createElement('div') as HTMLElement;
-    toyCardImage.src = `./images/toys/${i}.webp`;
+    const toyCardCount = document.createElement("div") as HTMLElement;
     toyCardCount.innerText = i.toString();
-    toyCard.append(toyCardImage);
     toyCard.append(toyCardCount);
+    for (let j = 1; j <= 2; j++) {
+      const toyCardImage = document.createElement("img") as HTMLImageElement;
+      toyCardImage.classList.add("toy-image");
+      toyCardImage.src = `./images/toys/${i}.webp`;
+      toyCard.append(toyCardImage);
+
+      //start moving
+      let currentDroppable: Element | null = null;
+
+      
+
+      toyCardImage.onmousedown = function (event) {
+        toyCardImage.style.cursor = "grabbing";
+        let shiftX = event.clientX - toyCardImage.getBoundingClientRect().left;
+        let shiftY = event.clientY - toyCardImage.getBoundingClientRect().top;
+
+        toyCardImage.style.zIndex = "3";
+        document.body.append(toyCardImage);
+
+        moveAt(event.pageX, event.pageY);
+
+        function moveAt(pageX, pageY) {
+          toyCardImage.style.left = pageX - shiftX + "px";
+          toyCardImage.style.top = pageY - shiftY + "px";
+        }
+
+        function onMouseMove(event) {
+          moveAt(event.pageX, event.pageY);
+
+          toyCardImage.hidden = true;
+          let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+          toyCardImage.hidden = false;
+
+          if (!elemBelow) return;
+
+          let droppableBelow = elemBelow.closest(".droppable");
+          if (currentDroppable != droppableBelow) {
+            if (currentDroppable) {
+              // null если мы были не над droppable до этого события
+              // (например, над пустым пространством)
+              leaveDroppable(toyCardImage);
+            }
+            currentDroppable = droppableBelow;
+            if (currentDroppable) {
+              // null если мы не над droppable сейчас, во время этого события
+              // (например, только что покинули droppable)
+              enterDroppable(toyCardImage);
+            }
+          }
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+
+        toyCardImage.onmouseup = function () {
+          if (currentDroppable) {
+            toyCardImage.style.background = "";
+          } else {
+            toyCard.append(toyCardImage);
+            toyCardImage.style.left = "auto";
+            toyCardImage.style.top = "auto";
+            //toyCardImage.style.background = "pink";
+          }
+          document.removeEventListener("mousemove", onMouseMove);
+          toyCardImage.onmouseup = null;
+          toyCardImage.style.cursor = "grab";
+        };
+      };
+
+ 
+
+      function enterDroppable(elem) {
+        elem.style.cursor = "grabbing";
+      }
+
+      function leaveDroppable(elem) {
+        elem.style.cursor = "no-drop";
+      }
+
+      toyCardImage.ondragstart = function () {
+        toyCardImage.style.cursor = "no-drop";
+        return false;
+      };
+    }
     toysContainer?.append(toyCard);
   }
 }
@@ -527,4 +607,4 @@ function createSnow() {
 createTrees();
 createBackgrounds();
 createToys();
-createSnow()
+createSnow();
