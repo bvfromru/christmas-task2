@@ -1,3 +1,4 @@
+@import url(./animations.scss);
 @import url(./snowflakes.scss);
 @import url(./garland.scss);
 
@@ -154,7 +155,7 @@ header {
   padding-top: 70px;
 }
 
-.main-container.toyspage {
+.main-container {
   min-height: calc(100vh - 70px - 72px);
 }
 
@@ -349,7 +350,15 @@ img {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+.invisible {
+  opacity: 0 !important;
+}
+
+.snowflakes {
+  transition: opacity 2s;
 }
 
 .github img {
@@ -458,7 +467,21 @@ footer a:hover {
   display: flex;
   flex-direction: row;
   height: calc(100vh - 140px);
-  min-height: 750px;
+  // min-height: 750px;
+}
+
+.main-container.start-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.main-container.start-page .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-tree-container {
@@ -471,7 +494,7 @@ footer a:hover {
   width: 800px;
   padding-bottom: 20px;
   overflow: hidden;
-  //position: relative;
+  position: relative;
 }
 
 .left-column {
@@ -529,11 +552,10 @@ h2 {
   background-size: cover;
 }
 
-
 .toys-container li {
   width: 84px;
   height: 84px;
-  background-color: rgba(255, 255, 255, .5);
+  background-color: rgba(255, 255, 255, 0.5);
   position: relative;
   display: flex;
   justify-content: center;
@@ -554,12 +576,11 @@ h2 {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background-color: #24C5DB;
+  background-color: #24c5db;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 
 .christmas-tree {
   display: block;
@@ -567,23 +588,116 @@ h2 {
   height: 714px;
 }
 
-.snowflakes {
-  display: none;
+
+
+.start-page-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 600px;
+  height: 250px;
+  margin-bottom: 80px;
+  color: #fff;
+  border: 3px solid $color-neon;
+  border-radius: 25px;
+  background-color: rgba(31, 112, 127, 0.3);
+  backdrop-filter: blur(6px);
+  font-size: 48px;
+  margin-top: 220px;
 }
 
-.dragging {
+.ball {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.ball::before {
+  content: "";
+  position: absolute;
+  background-color: #aaa;
+  width: 5px;
+}
+
+.ball1 {
+  width: 500px;
+  height: 500px;
+  left: calc(50% - 550px);
+  top: 230px;
+  background-image: url(./images/balls/1.webp);
+}
+
+.ball2 {
+  width: 300px;
+  height: 300px;
+  left: calc(50% + 150px);
+  top: 220px;
+  background-image: url(./images/balls/2.webp);
+}
+
+.ball1::before {
+  top: -210px;
+  left: calc(50% - 47px);
+  height: 220px;
+  width: 5px;
+}
+
+.ball2::before {
+  top: -205px;
+  left: calc(50% - 32px);
+  height: 210px;
+}
+
+.start-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: rgba(31, 112, 127, 0.3);
+  backdrop-filter: blur(6px);
+  font-size: 22px;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.header-btn {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 14px;
+  cursor: pointer;
+  transition: filter 0.3s, color 0.3s;
   opacity: 0.5;
+
+  &:hover {
+    filter: invert(57%) sepia(100%) saturate(329%) hue-rotate(141deg) brightness(89%) contrast(90%);
+  }
+
+  &.checked {
+    opacity: 1;
+  }
 }
 
+.sound {
+  background-image: url(./assets/svg/audio.svg);
+}
 
-
-
-
-
-
-
-
-
+.snow {
+  background-image: url(./assets/svg/snow.svg);
+}
 
 // checkbox styling
 
@@ -839,5 +953,3 @@ h2 {
     width: 90%;
   }
 }
-
-
