@@ -1,6 +1,6 @@
 import Utils from "../../services/Utils";
 import { data } from "../../data";
-import { setDefaultSettings, setLocalStorage, settings } from "../..";
+import { setDefaultSettings, setLocalStorage, settings } from "../../index";
 
 let Tree = {
   render: async () => {
@@ -330,11 +330,11 @@ let Tree = {
       }
     }
 
-    document.querySelector('.reset-settings')?.addEventListener('click', () => {
+    document.querySelector(".reset-settings")?.addEventListener("click", () => {
       setDefaultSettings();
       setLocalStorage();
       window.location.reload();
-    })
+    });
 
     createTrees();
     createBackgrounds();

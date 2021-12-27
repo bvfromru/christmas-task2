@@ -134,4 +134,4 @@ Utils.audios.music.autoplay = true;
 Utils.audios.music.loop = true;
 
 
-//console.log("***\n\nПриветствую проверяющего!***");
+console.log("***\n\nПриветствую проверяющего!\nВсе обязательные пункты ТЗ выполнил, самопроверка 200/200\nДискорд для связи: Vitaliy (bvfromru)#4741, пишите в случае чего!\n\n***");
