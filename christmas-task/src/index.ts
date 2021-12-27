@@ -34,7 +34,7 @@ type Settings = {
     snow: boolean;
     tree: number;
     background: number;
-    garland: number;
+    garland: string;
   }
 };
 
@@ -54,7 +54,7 @@ export let settings: Settings = {
     snow: true, 
     tree: 1,
     background: 1,
-    garland: 0,
+    garland: "",
   }
 };
 
@@ -87,7 +87,7 @@ export function setDefaultSettings() {
   settings.treeOptions.snow = true;
   settings.treeOptions.tree = 1;
   settings.treeOptions.background = 1;
-  settings.treeOptions.garland = 0;
+  settings.treeOptions.garland = "off";
 }
 
 export function setLocalStorage() {

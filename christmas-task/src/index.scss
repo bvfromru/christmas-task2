@@ -68,8 +68,6 @@ body {
   margin-right: auto;
 }
 
-
-
 header {
   position: fixed;
   background-color: #121c1e;
@@ -472,8 +470,6 @@ footer a:hover {
 .main-container.tree .main-wrapper {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 140px);
-  min-height: 750px;
 }
 
 .main-container.start-page,
@@ -500,9 +496,8 @@ footer a:hover {
   background-size: cover;
   background-position: center;
   width: 800px;
-  padding-bottom: 20px;
   overflow: hidden;
-  //position: relative;
+  height: 900px;
 }
 
 .left-column {
@@ -624,6 +619,7 @@ h2 {
   display: block;
   width: 500px;
   height: 714px;
+  margin-bottom: 30px;
 }
 
 .start-page-title {
@@ -733,6 +729,10 @@ h2 {
 
 .snow {
   background-image: url(./assets/svg/snow.svg);
+}
+
+.garland-options {
+  margin-bottom: 15px;
 }
 
 // checkbox styling
@@ -906,8 +906,97 @@ h2 {
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
 }
 
-// noUi slider styling
+//input radio styling
+.custom-radio {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
 
+.custom-radio.garland-multicolor + label::before {
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8);
+}
+.custom-radio.garland-red + label::before {
+  background-color: red;
+}
+.custom-radio.garland-blue + label::before {
+  background-color: rgb(35, 50, 255);
+}
+.custom-radio.garland-yellow + label::before {
+  background-color: yellow;
+}
+.custom-radio.garland-green + label::before {
+  background-color: lime;
+}
+
+/* для элемента label связанного с .custom-radio */
+.custom-radio + label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+/* создание в label псевдоэлемента  before со следующими стилями */
+.custom-radio + label::before {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  //border: 1px solid #adb5bd;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+  cursor: pointer;
+  transition: 0.3s;
+  //filter: grayscale(0.3);
+}
+/* стили при наведении курсора на радио */
+.custom-radio:not(:disabled):not(:checked) + label:hover::before {
+  transform: scale(1.1);
+}
+/* стили для активной радиокнопки (при нажатии на неё) */
+.custom-radio:not(:disabled):active + label::before {
+  
+}
+/* стили для радиокнопки, находящейся в фокусе */
+.custom-radio:focus + label::before {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+/* стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked */
+.custom-radio:focus:not(:checked) + label::before {
+  border-color: #80bdff;
+}
+/* стили для радиокнопки, находящейся в состоянии checked */
+.custom-radio:checked + label::before {
+  //filter: none;
+}
+
+.custom-radio.garland-multicolor:checked + label::before {
+  box-shadow: -2px -2px 22px rgb(255, 2, 2), 2px 2px 22px rgb(5, 255, 38);
+}
+.custom-radio.garland-red:checked + label::before {
+  box-shadow: -2px -2px 22px rgb(255, 2, 2), 2px 2px 22px rgb(255, 5, 5);
+}
+.custom-radio.garland-blue:checked + label::before {
+  box-shadow: -2px -2px 22px rgb(124, 126, 255), 2px 2px 22px rgb(73, 70, 250);
+}
+.custom-radio.garland-yellow:checked + label::before {
+  box-shadow: -2px -2px 22px rgb(238, 255, 2), 2px 2px 22px rgb(238, 255, 5);
+}
+.custom-radio.garland-green:checked + label::before {
+  box-shadow: -2px -2px 22px rgb(53, 255, 2), 2px 2px 22px rgb(5, 255, 38);
+}
+.custom-checkbox.garland-off:checked + label::before {
+  background-color: transparent;
+  border-color: white;
+}
+
+
+
+// noUi slider styling
 .slider-round {
   height: 10px;
   margin: 0 15px 15px 15px;
@@ -971,6 +1060,7 @@ h2 {
 
   .garland {
     width: 100%;
+    top: 542px;
   }
 
   .snowflakes {
@@ -984,6 +1074,7 @@ h2 {
   .filters-container {
     justify-content: center;
   }
+
 
   .filters {
     width: auto;
@@ -1005,7 +1096,6 @@ h2 {
     left: 34%;
     top: 200px;
   }
-  
 }
 
 @media screen and (max-width: 700px) {
@@ -1013,17 +1103,15 @@ h2 {
     position: relative;
     height: auto;
   }
-  
+
   .header-wrapper {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .main-container {
     padding-top: 0px;
   }
-
-
 }
 
 @media screen and (max-width: 600px) {
@@ -1034,5 +1122,4 @@ h2 {
   .start-page-title {
     width: 98%;
   }
-
 }

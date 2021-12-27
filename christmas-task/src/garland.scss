@@ -44,7 +44,7 @@
 .garland {
   display: flex;
   justify-content: center;
-  height: calc(100vh - 140px);
+  height: 900px;
   width: 800px;
   position: absolute;
   top: 70px;
@@ -56,28 +56,28 @@
 }
 
 .lightrope1 {
-  @include on-circle($item-count: 22, $circle-size: 680px, $item-size: 6px, $item-top: 200px);
+  @include on-circle($item-count: 22, $circle-size: 580px, $item-size: 6px, $item-top: 200px);
 }
 .lightrope2 {
-  @include on-circle($item-count: 20, $circle-size: 600px, $item-size: 6px, $item-top: 190px);
+  @include on-circle($item-count: 20, $circle-size: 540px, $item-size: 6px, $item-top: 160px);
 }
 .lightrope3 {
-  @include on-circle($item-count: 18, $circle-size: 500px, $item-size: 6px, $item-top: 210px);
+  @include on-circle($item-count: 18, $circle-size: 500px, $item-size: 6px, $item-top: 130px);
 }
 .lightrope4 {
-  @include on-circle($item-count: 16, $circle-size: 420px, $item-size: 6px, $item-top: 210px);
+  @include on-circle($item-count: 16, $circle-size: 420px, $item-size: 6px, $item-top: 140px);
 }
 .lightrope5 {
-  @include on-circle($item-count: 14, $circle-size: 340px, $item-size: 6px, $item-top: 210px);
+  @include on-circle($item-count: 14, $circle-size: 340px, $item-size: 6px, $item-top: 130px);
 }
 .lightrope6 {
-  @include on-circle($item-count: 12, $circle-size: 320px, $item-size: 6px, $item-top: 160px);
+  @include on-circle($item-count: 12, $circle-size: 320px, $item-size: 6px, $item-top: 80px);
 }
 .lightrope7 {
-  @include on-circle($item-count: 10, $circle-size: 240px, $item-size: 6px, $item-top: 180px);
+  @include on-circle($item-count: 10, $circle-size: 240px, $item-size: 6px, $item-top: 100px);
 }
 .lightrope8 {
-  @include on-circle($item-count: 8, $circle-size: 140px, $item-size: 6px, $item-top: 220px);
+  @include on-circle($item-count: 8, $circle-size: 140px, $item-size: 6px, $item-top: 140px);
 }
 
 

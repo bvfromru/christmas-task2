@@ -1,6 +1,6 @@
 import Utils from "../../services/Utils";
 import { data } from "../../data";
-import { setLocalStorage, settings } from "../..";
+import { setDefaultSettings, setLocalStorage, settings } from "../..";
 
 let Tree = {
   render: async () => {
@@ -22,7 +22,19 @@ let Tree = {
         </section>
         <section class="garland-options">
           <h2>Гирлянда</h2>
-        </section>
+          <input type="radio" class="custom-radio garland-radio garland-multicolor" name="garland" id="garland-multicolor" garland-id="multicolor" />
+          <label for="garland-multicolor"></label>
+          <input type="radio" class="custom-radio garland-radio garland-red" name="garland" id="garland-red" garland-id="red" />
+          <label for="garland-red"></label>
+          <input type="radio" class="custom-radio garland-radio garland-blue" name="garland" id="garland-blue" garland-id="blue" />
+          <label for="garland-blue"></label>
+          <input type="radio" class="custom-radio garland-radio garland-yellow" name="garland" id="garland-yellow" garland-id="yellow" />
+          <label for="garland-yellow"></label>
+          <input type="radio" class="custom-radio garland-radio garland-green" name="garland" id="garland-green" garland-id="green" />
+          <label for="garland-green"></label>
+          <input type="radio" class="custom-checkbox garland-radio garland-off" name="garland" id="garland-off" garland-id="off" />
+          <label for="garland-off">Выкл</label>
+           </section>
       </aside>  
       <main class="main-tree-container">
         <div class="snowflakes">            
@@ -86,8 +98,12 @@ let Tree = {
       }
     }
 
-    function createGarland() {
+    function createGarland(color: string) {
       const garland = document.querySelector(".garland");
+      garland!.innerHTML = "";
+      if (color === "off") {
+        return;
+      }
       let currentLiCount = GARLANDMAXLICOUNT;
       for (let j = 1; j <= GARLANDROPESCOUNT; j++) {
         const lightrope = document.createElement("ul");
@@ -96,7 +112,7 @@ let Tree = {
         currentLiCount -= 2;
         for (let i = 1; i <= currentLiCount; i++) {
           const li = document.createElement("li");
-          li.classList.add("red");
+          li.classList.add(color);
           lightrope.append(li);
         }
         garland?.append(lightrope);
@@ -266,12 +282,67 @@ let Tree = {
       }
     }
 
+    function handleGarland() {
+      const garlandRadio = document.querySelectorAll(".garland-radio");
+      garlandRadio.forEach((radio) =>
+        radio.addEventListener("click", () => {
+          const garlandColor: string = radio.getAttribute("garland-id")!;
+          settings.treeOptions.garland = garlandColor;
+          if (garlandColor) {
+            createGarland(garlandColor);
+          }
+          setLocalStorage();
+        })
+      );
+    }
+
+    function initGarlandRadioBtn() {
+      switch (settings.treeOptions.garland) {
+        case "multicolor":
+          const radioMulti = document.querySelector(".garland-multicolor") as HTMLInputElement;
+          radioMulti.checked = true;
+          createGarland("multicolor");
+          break;
+        case "red":
+          const radioRed = document.querySelector(".garland-red") as HTMLInputElement;
+          radioRed.checked = true;
+          createGarland("red");
+          break;
+        case "green":
+          const radioGreen = document.querySelector(".garland-green") as HTMLInputElement;
+          radioGreen.checked = true;
+          createGarland("green");
+          break;
+        case "blue":
+          const radioBlue = document.querySelector(".garland-blue") as HTMLInputElement;
+          radioBlue.checked = true;
+          createGarland("blue");
+          break;
+        case "yellow":
+          const radioYellow = document.querySelector(".garland-yellow") as HTMLInputElement;
+          radioYellow.checked = true;
+          createGarland("yellow");
+          break;
+        default:
+          const radioOff = document.querySelector(".garland-off") as HTMLInputElement;
+          radioOff.checked = true;
+          break;
+      }
+    }
+
+    document.querySelector('.reset-settings')?.addEventListener('click', () => {
+      setDefaultSettings();
+      setLocalStorage();
+      window.location.reload();
+    })
+
     createTrees();
     createBackgrounds();
     initToys();
     createSnow();
     checkSnowBtn();
-    createGarland();
+    initGarlandRadioBtn();
+    handleGarland();
   },
 };
 
