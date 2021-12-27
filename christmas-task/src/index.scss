@@ -1,6 +1,6 @@
-@import url(./animations.scss);
-@import url(./snowflakes.scss);
-@import url(./garland.scss);
+@import "./animations.scss";
+@import "./snowflakes.scss";
+@import "./garland.scss";
 
 $color-neon: #278d9f;
 $animation-time: 0.6s;
@@ -68,12 +68,15 @@ body {
   margin-right: auto;
 }
 
+
+
 header {
   position: fixed;
   background-color: #121c1e;
-  z-index: 1;
+  z-index: 30;
   left: 0;
   right: 0;
+  height: 70px;
 }
 
 .header-wrapper {
@@ -369,6 +372,10 @@ img {
   width: 120px;
 }
 
+footer {
+  height: 56px;
+}
+
 .footer-wrapper {
   display: flex;
   flex-direction: row;
@@ -458,7 +465,6 @@ footer a:hover {
   margin-bottom: 10px;
 }
 
-//tree page styling
 .wrapper {
   max-width: 1600px;
 }
@@ -467,17 +473,19 @@ footer a:hover {
   display: flex;
   flex-direction: row;
   height: calc(100vh - 140px);
-  // min-height: 750px;
+  min-height: 750px;
 }
 
-.main-container.start-page {
+.main-container.start-page,
+.main-container.error-page {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
 }
 
-.main-container.start-page .wrapper {
+.main-container.start-page .wrapper,
+.main-container.error-page .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -494,7 +502,7 @@ footer a:hover {
   width: 800px;
   padding-bottom: 20px;
   overflow: hidden;
-  position: relative;
+  //position: relative;
 }
 
 .left-column {
@@ -502,7 +510,7 @@ footer a:hover {
 }
 
 .right-column {
-  width: calc(380px);
+  width: 380px;
   padding-left: 20px;
 }
 
@@ -510,7 +518,7 @@ h2 {
   text-transform: uppercase;
 }
 
-.cards-container {
+.treecards-container {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -519,23 +527,18 @@ h2 {
   gap: 10px;
   margin: 0;
   padding: 0;
+  margin-bottom: 40px;
 }
 
-.cards-container li {
+.treecards-container li {
   background-position: center;
   background-repeat: no-repeat;
   backdrop-filter: blur(3px);
   border-radius: 10px;
   cursor: pointer;
-  transition: filter 0.3s;
-
-  &:hover {
-    filter: brightness(1.1) contrast(1.1);
-  }
-
-  &.active {
-    filter: brightness(0.5) contrast(0.5);
-  }
+  border: 2px solid transparent;
+  transition: filter 0.3s, background-color 0.3s, border 0.3s;
+  box-sizing: border-box;
 }
 
 .trees-container li {
@@ -543,13 +546,32 @@ h2 {
   height: 115px;
   background-color: rgba(255, 255, 255, 0.5);
   background-size: auto 110px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  &.active {
+    border: 2px solid #fff;
+  }
 }
 
 .backgrounds-container li {
   width: 65px;
   height: 65px;
-  border: 1px solid #cccc;
-  background-size: cover;
+  background-size: 195%;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &.active {
+    border: 2px solid #fff;
+  }
+}
+
+.toys-container {
+  margin-bottom: 30px;
 }
 
 .toys-container li {
@@ -560,6 +582,16 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: initial;
+  border: none;
+}
+
+.toys-options {
+  text-align: center;
+
+  h2 {
+    text-align: left;
+  }
 }
 
 .toy-image {
@@ -567,6 +599,11 @@ h2 {
   height: 60px;
   cursor: grab;
   position: absolute;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
 .toys-container div {
@@ -580,6 +617,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 25px;
 }
 
 .christmas-tree {
@@ -587,8 +625,6 @@ h2 {
   width: 500px;
   height: 714px;
 }
-
-
 
 .start-page-title {
   display: flex;
@@ -916,6 +952,34 @@ h2 {
   font-size: 20px;
 }
 
+@media screen and (max-width: 1400px) {
+  .main-container.tree .main-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-column,
+  .right-column {
+    width: auto;
+    padding-right: 2%;
+    padding-left: 2%;
+  }
+
+  .main-tree-container {
+    width: 100%;
+  }
+
+  .garland {
+    width: 100%;
+  }
+
+  .snowflakes {
+    width: 100%;
+    position: fixed;
+    height: auto;
+  }
+}
+
 @media screen and (max-width: 1000px) {
   .filters-container {
     justify-content: center;
@@ -931,25 +995,44 @@ h2 {
     display: flex;
     flex-direction: column;
   }
+
+  .ball1 {
+    left: -22%;
+    top: 200px;
+  }
+
+  .ball2 {
+    left: 34%;
+    top: 200px;
+  }
+  
 }
 
 @media screen and (max-width: 700px) {
   header {
-    position: static;
+    position: relative;
+    height: auto;
   }
-
+  
   .header-wrapper {
     flex-wrap: wrap;
     justify-content: center;
   }
-
+  
   .main-container {
     padding-top: 0px;
   }
+
+
 }
 
 @media screen and (max-width: 600px) {
   .filters {
     width: 90%;
   }
+
+  .start-page-title {
+    width: 98%;
+  }
+
 }

@@ -1,7 +1,18 @@
-//import Utils from "../../services/Utils";
+import Utils from "../../services/Utils";
 import { data } from "../../data";
 import noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
+import {
+  assignSettings,
+  setDefaultSettings,
+  setLocalStorage,
+  settings,
+  sliderNumberMin,
+  sliderNumberMax,
+  sliderYearMin,
+  sliderYearMax,
+} from "../../index";
+import { handleFavoritesCounter } from "../components/Navbar";
 
 let Toys = {
   render: async () => {
@@ -134,37 +145,11 @@ let Toys = {
   },
 
   after_render: async () => {
-    document.querySelector('.snow')?.classList.add('hidden');
-
-    type Settings = {
-      favorites: string[];
-      filters: {
-        arrShape: string[];
-        number: number[];
-        year: number[];
-        arrColor: string[];
-        arrSize: string[];
-        onlyFavorites: boolean;
-      };
-      sort: string;
-    };
-
-    let settings: Settings = {
-      favorites: [],
-      filters: {
-        arrShape: [],
-        number: [],
-        year: [],
-        arrColor: [],
-        arrSize: [],
-        onlyFavorites: false,
-      },
-      sort: "",
-    };
+    //Hide snow button in navbar
+    document.querySelector(".snow")?.classList.add("hidden");
 
     //let favorites: string[] = [];
     const overlay = document.querySelector(".overlay");
-    const favoritesCounter = document.querySelector(".favorites-counter");
     const cardsContainer = document.querySelector(".cards-container");
     const filterFavorite = document.getElementById("favorite") as HTMLInputElement;
     filterFavorite?.addEventListener("change", filterData);
@@ -204,10 +189,6 @@ let Toys = {
     resetSettingsBtn?.addEventListener("click", resetSettings);
     const sliderNumber: any = document.getElementById("sliderNumber")!;
     const sliderYear: any = document.getElementById("sliderYear")!;
-    const sliderNumberMin = 1;
-    const sliderNumberMax = 12;
-    const sliderYearMin = 1940;
-    const sliderYearMax = 2020;
     const sliderNumberOutputs = [
       document.getElementById("slider-number-output-lower")!,
       document.getElementById("slider-number-output-upper")!,
@@ -251,23 +232,18 @@ let Toys = {
         card.addEventListener("click", () => {
           const toyId: string = card.getAttribute("toy-id")!;
           if (settings.favorites.includes(toyId)) {
-            if (settings.favorites.length === 20) {
-              favoritesCounter?.classList.remove("red");
-            }
             settings.favorites.splice(settings.favorites.indexOf(toyId), 1);
             card.classList.remove("favorite");
           } else {
             if (settings.favorites.length >= 20) {
               overlay?.classList.remove("hidden");
             } else {
-              if (settings.favorites.length === 19) {
-                favoritesCounter?.classList.add("red");
-              }
               settings.favorites.push(toyId);
               card.classList.add("favorite");
             }
           }
-          favoritesCounter!.innerHTML = settings.favorites.length.toString();
+            handleFavoritesCounter();
+            setLocalStorage();
         })
       );
     }
@@ -442,7 +418,7 @@ let Toys = {
     function resetSettings() {
       settings.favorites = [];
       sort.value = "name";
-      favoritesCounter!.innerHTML = settings.favorites.length.toString();
+      handleFavoritesCounter();
       resetFilters();
       initSettings();
     }
@@ -455,19 +431,8 @@ let Toys = {
       cardsContainer!.append(emptyMessage);
     }
 
-    function setLocalStorage() {
-      localStorage.setItem("bvfromru-christmas-settings", JSON.stringify(settings));
-    }
+  
 
-    function getLocalStorage() {
-      if (localStorage.getItem("bvfromru-christmas-settings")) {
-        settings = JSON.parse(localStorage.getItem("bvfromru-christmas-settings")!);
-      } else {
-        initSettings();
-      }
-      actualizeFilters();
-      favoritesCounter!.innerHTML = settings.favorites.length.toString();
-    }
 
     function actualizeFilters() {
       if (settings.filters.arrSize.includes("малый")) {
@@ -519,24 +484,18 @@ let Toys = {
       }
     }
 
-    function initSettings() {
-      settings.favorites = [];
-      settings.filters.arrShape = [];
-      settings.filters.number = [sliderNumberMin, sliderNumberMax];
-      settings.filters.year = [sliderYearMin, sliderYearMax];
-      settings.filters.arrColor = [];
-      settings.filters.arrSize = [];
-      settings.filters.onlyFavorites = false;
-      settings.sort = "name";
-      if (settings.favorites.length < 20) {
-        favoritesCounter?.classList.remove("red");
-      }
 
+
+    function initSettings() {
+      setDefaultSettings();
+      handleFavoritesCounter();
       setLocalStorage();
     }
 
+
+   
     function init() {
-      getLocalStorage();
+      assignSettings();
 
       overlay?.addEventListener("click", () => {
         overlay.classList.add("hidden");
@@ -572,18 +531,13 @@ let Toys = {
         filterData();
       });
 
-      if (settings.favorites.length === 20) {
-        favoritesCounter?.classList.add("red");
-      }
-
+      actualizeFilters();
+      handleFavoritesCounter();
       filterData();
     }
-    console.log(
-      "Приветствую проверяющего! Спасибо, что подождали. Все что хотел, доделал.\nСамооценка задания: 200/200, все пункты выполнил.\nВ качестве небольших дополнительных бонусов заморочился с плавным поочередным появлением карточек и подсветкой количества игрушек в избранном при достижении лимита.\nДискорд для связи: Vitaliy (bvfromru)#4741"
-    );
 
-    window.addEventListener("beforeunload", setLocalStorage);
-    window.addEventListener("load", getLocalStorage);
+    //window.addEventListener("beforeunload", setLocalStorage);
+    window.addEventListener("load", init);
     init();
   },
 };

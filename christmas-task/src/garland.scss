@@ -1,47 +1,86 @@
+@mixin on-circle($item-count, $circle-size, $item-size, $item-top) {
+  width: $circle-size;
+  height: $circle-size;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  top: $item-top;
+  
+
+  > * {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -($item-size);
+    width: $item-size;
+    height: $item-size;
+    padding: 0;
+    list-style: none;
+    border-radius: 50%;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+
+    $angle: (90 / $item-count);
+    $rot: 55;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+
 .garland {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   height: calc(100vh - 140px);
   width: 800px;
   position: absolute;
-  top: 20px;
+  top: 70px;
   left: 50%;
-  margin-left: -400px;
+  transform: translateX(-50%);
   pointer-events: none;
   z-index: 90;
   overflow: hidden;
 }
 
-.lightrope {
-  white-space: nowrap;
-  overflow: hidden;
-  position: absolute;
-  z-index: 1;
-  margin: 0;
-  padding: 0;
-  pointer-events: none;
-  border-radius: 50%;
-  padding: 0;
-  list-style: none;
-  margin: 50px auto 0;
+.lightrope1 {
+  @include on-circle($item-count: 22, $circle-size: 680px, $item-size: 6px, $item-top: 200px);
+}
+.lightrope2 {
+  @include on-circle($item-count: 20, $circle-size: 600px, $item-size: 6px, $item-top: 190px);
+}
+.lightrope3 {
+  @include on-circle($item-count: 18, $circle-size: 500px, $item-size: 6px, $item-top: 210px);
+}
+.lightrope4 {
+  @include on-circle($item-count: 16, $circle-size: 420px, $item-size: 6px, $item-top: 210px);
+}
+.lightrope5 {
+  @include on-circle($item-count: 14, $circle-size: 340px, $item-size: 6px, $item-top: 210px);
+}
+.lightrope6 {
+  @include on-circle($item-count: 12, $circle-size: 320px, $item-size: 6px, $item-top: 160px);
+}
+.lightrope7 {
+  @include on-circle($item-count: 10, $circle-size: 240px, $item-size: 6px, $item-top: 180px);
+}
+.lightrope8 {
+  @include on-circle($item-count: 8, $circle-size: 140px, $item-size: 6px, $item-top: 220px);
 }
 
-.lightrope li {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  margin: -5px;
-  animation-name: red;
-  animation-fill-mode: both;
-  animation-iteration-count: infinite;
-  animation-duration: 2s;
-}
+
 
 .lightrope li:nth-child(2n + 1) {
   animation-duration: 1.8s;
@@ -55,15 +94,31 @@
   animation-duration: 1.4s;
 }
 
-.lightrope li.red { animation-name: red; }
-.lightrope li.green { animation-name: green; }
-.lightrope li.blue { animation-name: blue; }
-.lightrope li.yellow { animation-name: yellow; }
+.lightrope li.red {
+  animation-name: red;
+}
+.lightrope li.green {
+  animation-name: green;
+}
+.lightrope li.blue {
+  animation-name: blue;
+}
+.lightrope li.yellow {
+  animation-name: yellow;
+}
 
-.lightrope li.multicolor:nth-child(1n + 1) { animation-name: red; }
-.lightrope li:nth-child(2n + 2).multicolor { animation-name: green; }
-.lightrope li:nth-child(3n + 3).multicolor { animation-name: blue; }
-.lightrope li:nth-child(4n + 4).multicolor { animation-name: yellow; }
+.lightrope li.multicolor:nth-child(1n + 1) {
+  animation-name: red;
+}
+.lightrope li:nth-child(2n + 2).multicolor {
+  animation-name: green;
+}
+.lightrope li:nth-child(3n + 3).multicolor {
+  animation-name: blue;
+}
+.lightrope li:nth-child(4n + 4).multicolor {
+  animation-name: yellow;
+}
 
 @keyframes green {
   0%,

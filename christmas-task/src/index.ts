@@ -18,24 +18,81 @@ const routes = {
 };
 
 
-let questionsByAuthor = [];
-let questionsByPicture = [];
-let initialQuizAnswersByAuthor = [];
-let initialQuizAnswersByPicture = [];
-const chunkSize = 10;
-export let chunkedQuestionsbyAuthor = [];
-export let chunkedQuestionsbyPicture = [];
-export let images = null;
+type Settings = {
+  favorites: string[];
+  filters: {
+    arrShape: string[];
+    number: number[];
+    year: number[];
+    arrColor: string[];
+    arrSize: string[];
+    onlyFavorites: boolean;
+  };
+  sort: string;
+  music: boolean;
+  treeOptions: {
+    snow: boolean;
+    tree: number;
+    background: number;
+    garland: number;
+  }
+};
+
+export let settings: Settings = {
+  favorites: [],
+  filters: {
+    arrShape: [],
+    number: [],
+    year: [],
+    arrColor: [],
+    arrSize: [],
+    onlyFavorites: false,
+  },
+  sort: "",
+  music: true,
+  treeOptions: {
+    snow: true, 
+    tree: 1,
+    background: 1,
+    garland: 0,
+  }
+};
+
+export const sliderNumberMin = 1;
+export const sliderNumberMax = 12;
+export const sliderYearMin = 1940;
+export const sliderYearMax = 2020;
 
 
-let initialize = async () => {
-  
+assignSettings()
+
+export function assignSettings() {
+  if (localStorage.getItem("bvfromru-christmas-settings")) {
+    settings = JSON.parse(localStorage.getItem("bvfromru-christmas-settings")!);
+  } else {
+    setDefaultSettings();
+  }
 }
 
+export function setDefaultSettings() {
+  settings.favorites = [];
+  settings.filters.arrShape = [];
+  settings.filters.number = [sliderNumberMin, sliderNumberMax];
+  settings.filters.year = [sliderYearMin, sliderYearMax];
+  settings.filters.arrColor = [];
+  settings.filters.arrSize = [];
+  settings.filters.onlyFavorites = false;
+  settings.sort = "name";
+  settings.music = true;
+  settings.treeOptions.snow = true;
+  settings.treeOptions.tree = 1;
+  settings.treeOptions.background = 1;
+  settings.treeOptions.garland = 0;
+}
 
-// Initialize pictures data
-
-initialize();
+export function setLocalStorage() {
+  localStorage.setItem("bvfromru-christmas-settings", JSON.stringify(settings));
+}
 
 
 // The router code. Takes a URL, checks against the list of supported routes and then renders the corresponding content page.
@@ -72,6 +129,9 @@ window.addEventListener("hashchange", router);
 
 // Listen on page load:
 window.addEventListener("load", router);
+
+Utils.audios.music.autoplay = true;
+Utils.audios.music.loop = true;
 
 
 //console.log("***\n\nПриветствую проверяющего!***");
