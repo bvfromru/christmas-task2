@@ -489,7 +489,6 @@ let Toys = {
     function initSettings() {
       setDefaultSettings();
       handleFavoritesCounter();
-      localStorage.clear();
       setLocalStorage();
     }
 
@@ -497,11 +496,11 @@ let Toys = {
    
     function init() {
       assignSettings();
-
+      
       overlay?.addEventListener("click", () => {
         overlay.classList.add("hidden");
       });
-
+      
       noUiSlider.create(sliderNumber, {
         start: [settings.filters.number[0], settings.filters.number[1]],
         step: 1,
@@ -511,7 +510,7 @@ let Toys = {
           max: sliderNumberMax,
         },
       });
-
+      
       noUiSlider.create(sliderYear, {
         start: [settings.filters.year[0], settings.filters.year[1]],
         step: 1,
@@ -521,18 +520,19 @@ let Toys = {
           max: sliderYearMax,
         },
       });
-
+      actualizeFilters();
+      
       sliderNumber.noUiSlider.on("update", function (values, handle) {
         sliderNumberOutputs[handle].innerHTML = parseInt(values[handle]).toString();
         filterData();
       });
-
+      
       sliderYear.noUiSlider.on("update", function (values, handle) {
         sliderYearOutputs[handle].innerHTML = parseInt(values[handle]).toString();
         filterData();
       });
+      
 
-      actualizeFilters();
       handleFavoritesCounter();
       filterData();
     }
