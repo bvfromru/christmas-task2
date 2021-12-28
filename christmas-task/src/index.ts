@@ -67,8 +67,8 @@ export const sliderYearMax = 2020;
 assignSettings()
 
 export function assignSettings() {
-  if (localStorage.getItem("bvfromru-christmas-settings")) {
-    settings = JSON.parse(localStorage.getItem("bvfromru-christmas-settings")!);
+  if (localStorage.getItem("bvfromru-christmas-settings2")) {
+    settings = JSON.parse(localStorage.getItem("bvfromru-christmas-settings2")!);
   } else {
     setDefaultSettings();
   }
@@ -91,7 +91,7 @@ export function setDefaultSettings() {
 }
 
 export function setLocalStorage() {
-  localStorage.setItem("bvfromru-christmas-settings", JSON.stringify(settings));
+  localStorage.setItem("bvfromru-christmas-settings2", JSON.stringify(settings));
 }
 
 
@@ -134,4 +134,4 @@ Utils.audios.music.autoplay = true;
 Utils.audios.music.loop = true;
 
 
-console.log("***\n\nПриветствую проверяющего!\nВсе обязательные пункты ТЗ выполнил, самопроверка 200/200\nДискорд для связи: Vitaliy (bvfromru)#4741, пишите в случае чего!\n\n***");
+console.log("***\n\nПриветствую проверяющего!\nВсе обязательные пункты ТЗ выполнил, самопроверка 200/200\nДискорд для связи: Vitaliy (bvfromru)#4741, пишите в случае чего!\n\nС Наступающим!\n***");

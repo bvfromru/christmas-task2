@@ -489,6 +489,7 @@ let Toys = {
     function initSettings() {
       setDefaultSettings();
       handleFavoritesCounter();
+      localStorage.clear();
       setLocalStorage();
     }
 

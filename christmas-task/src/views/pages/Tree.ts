@@ -332,6 +332,7 @@ let Tree = {
 
     document.querySelector(".reset-settings")?.addEventListener("click", () => {
       setDefaultSettings();
+      localStorage.clear();
       setLocalStorage();
       window.location.reload();
     });
