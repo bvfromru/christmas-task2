@@ -8,15 +8,21 @@ import Error404 from "./views/pages/Error404";
 import Navbar from "./views/components/Navbar";
 import Bottombar from "./views/components/Bottombar";
 import Utils from "./services/Utils";
+import { Request } from "./services/Utils";
 
 // List of supported routes. Any url other than these routes will throw a 404 error
-const routes = {
+export interface IPage {
+  render: () => Promise<string>;
+  after_render: () => Promise<void>;
+}
+
+
+const routes: { [key: string]: IPage } = {
   "/": Home,
   "/home": Home,
   "/toys": Toys,
   "/tree": Tree,
 };
-
 
 type Settings = {
   favorites: string[];
@@ -35,7 +41,7 @@ type Settings = {
     tree: number;
     background: number;
     garland: string;
-  }
+  };
 };
 
 export let settings: Settings = {
@@ -51,11 +57,11 @@ export let settings: Settings = {
   sort: "",
   music: true,
   treeOptions: {
-    snow: true, 
+    snow: true,
     tree: 1,
     background: 1,
     garland: "",
-  }
+  },
 };
 
 export const sliderNumberMin = 1;
@@ -63,8 +69,7 @@ export const sliderNumberMax = 12;
 export const sliderYearMin = 1940;
 export const sliderYearMax = 2020;
 
-
-assignSettings()
+assignSettings();
 
 export function assignSettings() {
   if (localStorage.getItem("bvfromru-christmas-settings2")) {
@@ -94,7 +99,6 @@ export function setLocalStorage() {
   localStorage.setItem("bvfromru-christmas-settings2", JSON.stringify(settings));
 }
 
-
 // The router code. Takes a URL, checks against the list of supported routes and then renders the corresponding content page.
 const router = async () => {
   // Lazy load view element:
@@ -109,7 +113,7 @@ const router = async () => {
   await Bottombar.after_render();
 
   // Get the parsed URl from the addressbar
-  let request = Utils.parseRequestURL();
+  let request: Request = Utils.parseRequestURL();
 
   // Parse the URL and if it has an id part, change it with the string ":id"
   let parsedURL =
@@ -119,7 +123,11 @@ const router = async () => {
 
   // Get the page from our hash of supported routes.
   // If the parsed URL is not in our list of supported routes, select the 404 page instead
-  let page = routes[parsedURL] ? routes[parsedURL] : Error404;
+  let page: IPage = Error404;
+  if (routes[parsedURL]) {
+    page = routes[parsedURL];
+  }
+  // let page = routes[parsedURL] ? routes[parsedURL] as IPage : Error404 as IPage;
   content!.innerHTML = await page.render();
   await page.after_render();
 };
@@ -133,5 +141,6 @@ window.addEventListener("load", router);
 Utils.audios.music.autoplay = true;
 Utils.audios.music.loop = true;
 
-
-console.log("***\n\nПриветствую проверяющего!\nВсе обязательные пункты ТЗ выполнил, самопроверка 200/200\nДискорд для связи: Vitaliy (bvfromru)#4741, пишите в случае чего!\n\nС Наступающим!\n***");
+console.log(
+  "***\n\nПриветствую проверяющего!\nВсе обязательные пункты ТЗ выполнил, самопроверка 200/200\nДискорд для связи: Vitaliy (bvfromru)#4741, пишите в случае чего!\n\nС Наступающим!\n***"
+);

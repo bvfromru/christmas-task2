@@ -1,4 +1,6 @@
-let Error404 = {
+import { IPage } from "../..";
+
+let Error404: IPage = {
 
     render : async () => {
         let view =  /*html*/`

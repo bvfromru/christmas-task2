@@ -1,4 +1,6 @@
-let Home = {
+import { IPage } from "../..";
+
+let Home: IPage = {
   render: async () => {
     let view = `
     <div class="main-container start-page">

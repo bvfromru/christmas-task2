@@ -1,6 +1,6 @@
 import Utils from "../../services/Utils";
 import { data } from "../../data";
-import noUiSlider from "nouislider";
+import noUiSlider, { API } from "nouislider";
 import "nouislider/dist/nouislider.css";
 import {
   assignSettings,
@@ -11,10 +11,16 @@ import {
   sliderNumberMax,
   sliderYearMin,
   sliderYearMax,
+  IPage,
 } from "../../index";
 import { handleFavoritesCounter } from "../components/Navbar";
+import { IData } from "../../data";
 
-let Toys = {
+interface Instance extends HTMLElement {
+  noUiSlider: API;
+}
+
+let Toys: IPage = {
   render: async () => {
     let view = /*html*/ `
     <div class="main-container toys-page">
@@ -187,8 +193,8 @@ let Toys = {
     resetFiltersBtn?.addEventListener("click", resetFilters);
     const resetSettingsBtn = document.getElementById("reset-settings") as HTMLInputElement;
     resetSettingsBtn?.addEventListener("click", resetSettings);
-    const sliderNumber: any = document.getElementById("sliderNumber")!;
-    const sliderYear: any = document.getElementById("sliderYear")!;
+    const sliderNumber = document.getElementById("sliderNumber") as Instance;
+    const sliderYear = document.getElementById("sliderYear") as Instance;
     const sliderNumberOutputs = [
       document.getElementById("slider-number-output-lower")!,
       document.getElementById("slider-number-output-upper")!,
@@ -198,7 +204,7 @@ let Toys = {
       document.getElementById("slider-year-output-upper")!,
     ];
 
-    function renderCards(data) {
+    function renderCards(data: IData[]) {
       const fragment = document.createDocumentFragment();
       const sourceCard = document.querySelector("#sourceCard") as HTMLTemplateElement;
       cardsContainer!.innerHTML = "";
@@ -242,8 +248,8 @@ let Toys = {
               card.classList.add("favorite");
             }
           }
-            handleFavoritesCounter();
-            setLocalStorage();
+          handleFavoritesCounter();
+          setLocalStorage();
         })
       );
     }
@@ -431,9 +437,6 @@ let Toys = {
       cardsContainer!.append(emptyMessage);
     }
 
-  
-
-
     function actualizeFilters() {
       if (settings.filters.arrSize.includes("малый")) {
         filterSizeSmall.checked = true;
@@ -484,23 +487,19 @@ let Toys = {
       }
     }
 
-
-
     function initSettings() {
       setDefaultSettings();
       handleFavoritesCounter();
       setLocalStorage();
     }
 
-
-   
     function init() {
       assignSettings();
-      
+
       overlay?.addEventListener("click", () => {
         overlay.classList.add("hidden");
       });
-      
+
       noUiSlider.create(sliderNumber, {
         start: [settings.filters.number[0], settings.filters.number[1]],
         step: 1,
@@ -510,7 +509,7 @@ let Toys = {
           max: sliderNumberMax,
         },
       });
-      
+
       noUiSlider.create(sliderYear, {
         start: [settings.filters.year[0], settings.filters.year[1]],
         step: 1,
@@ -521,17 +520,16 @@ let Toys = {
         },
       });
       actualizeFilters();
-      
+
       sliderNumber.noUiSlider.on("update", function (values, handle) {
-        sliderNumberOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+        sliderNumberOutputs[handle].innerHTML = parseInt(values[handle].toString()).toString();
         filterData();
       });
-      
+
       sliderYear.noUiSlider.on("update", function (values, handle) {
-        sliderYearOutputs[handle].innerHTML = parseInt(values[handle]).toString();
+        sliderYearOutputs[handle].innerHTML = parseInt(values[handle].toString()).toString();
         filterData();
       });
-      
 
       handleFavoritesCounter();
       filterData();

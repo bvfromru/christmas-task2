@@ -1,8 +1,8 @@
 import Utils from "../../services/Utils";
 import { data } from "../../data";
-import { setDefaultSettings, setLocalStorage, settings } from "../../index";
+import { setDefaultSettings, setLocalStorage, settings, IPage } from "../../index";
 
-let Tree = {
+let Tree: IPage = {
   render: async () => {
     let view = /*html*/ `
     <div class="main-container tree">
@@ -66,7 +66,7 @@ let Tree = {
     const BACKGROUNDSCOUNT = 10;
     const SNOWFLAKESCOUNT = 133;
     const DEFAULTARRLENGTH = 20;
-    const DefaultToysArr: Array<number> = [];
+    const DefaultToysArr: Array<string> = [];
     const GARLANDROPESCOUNT = 8;
     const GARLANDMAXLICOUNT = 22;
 
@@ -146,7 +146,7 @@ let Tree = {
 
     function createDefaultToysArr() {
       for (let i = 1; i <= DEFAULTARRLENGTH; i++) {
-        DefaultToysArr.push(i);
+        DefaultToysArr.push(i.toString());
       }
     }
 
@@ -159,17 +159,17 @@ let Tree = {
       }
     }
 
-    function createToys(arr) {
+    function createToys(arr: Array<string>) {
       const toysContainer = document.querySelector(".toys-container");
       for (let i = 0; i < arr.length; i++) {
         const toyCard = document.createElement("li");
         const toyCardCount = document.createElement("div") as HTMLElement;
-        toyCardCount.innerText = data[arr[i] - 1].count;
+        toyCardCount.innerText = data[+arr[i] - 1].count;
         toyCard.append(toyCardCount);
-        for (let j = 1; j <= +data[arr[i] - 1].count; j++) {
+        for (let j = 1; j <= +data[+arr[i] - 1].count; j++) {
           const toyCardImage = document.createElement("img") as HTMLImageElement;
           toyCardImage.classList.add("toy-image");
-          toyCardImage.src = `./images/toys/${data[arr[i] - 1].num}.webp`;
+          toyCardImage.src = `./images/toys/${data[+arr[i] - 1].num}.webp`;
           toyCard.append(toyCardImage);
 
           //start moving
@@ -186,12 +186,12 @@ let Tree = {
 
             moveAt(event.pageX, event.pageY);
 
-            function moveAt(pageX, pageY) {
+            function moveAt(pageX: number, pageY: number) {
               toyCardImage.style.left = pageX - shiftX + "px";
               toyCardImage.style.top = pageY - shiftY + "px";
             }
 
-            function onMouseMove(event) {
+            function onMouseMove(event: MouseEvent) {
               moveAt(event.pageX, event.pageY);
 
               toyCardImage.hidden = true;
@@ -233,11 +233,11 @@ let Tree = {
             };
           };
 
-          function enterDroppable(elem) {
+          function enterDroppable(elem: HTMLImageElement) {
             elem.style.cursor = "grabbing";
           }
 
-          function leaveDroppable(elem) {
+          function leaveDroppable(elem: HTMLImageElement) {
             elem.style.cursor = "no-drop";
           }
 

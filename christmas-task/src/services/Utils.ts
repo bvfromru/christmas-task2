@@ -1,3 +1,10 @@
+export interface Request {
+  resource: string | null;
+  id: string | null;
+  verb: string | null;
+}
+
+
 const Utils = { 
     // --------------------------------
     //  Parse a url and break it into resource, id and verb
@@ -7,11 +14,6 @@ const Utils = {
         let url: string = location.hash.slice(1).toLowerCase() || '/';
         let r: string[] = url.split("/")
         
-        interface Request {
-          resource: string | null;
-          id: string | null;
-          verb: string | null;
-        }
         
         let request: Request = {
             resource    : null,
@@ -29,17 +31,15 @@ const Utils = {
     // --------------------------------
     //  Simple sleep implementation
     // --------------------------------
-    sleep: (ms) => {
+    sleep: (ms: number) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     },
 
-    playAudio(sound) {
-      //sound.currentTime = 0.0;
-      //sound.play();
-      if (sound.paused) {
-        sound.play();
-      }
-    },
+    // playAudio(sound) {
+    //   if (sound.paused) {
+    //     sound.play();
+    //   }
+    // },
 
 // Initialize Audio
   audios: {

@@ -1,7 +1,7 @@
 import Utils from "../../services/Utils";
 import { setLocalStorage, settings } from "../../index";
 
-let favoritesCounter;
+let favoritesCounter: HTMLElement;
 
 export function handleFavoritesCounter() {
   if (settings.favorites.length === 20) {
@@ -52,7 +52,6 @@ let Navbar = {
 
     const soundBtn = document.querySelector(".sound");
     soundBtn?.addEventListener("click", toggleSoundBtn);
-    //Utils.playAudio(Utils.audios.music);
     checkSoundBtn();
 
     function toggleSoundBtn() {
